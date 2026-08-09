@@ -1,12 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Play } from 'lucide-react'
 import { Reveal } from './Reveal'
 import { Badge } from './Badge'
+import { useReveal } from '../hooks/useReveal'
 
 const DEMO_VIDEO_URL = '/demo.webm'
 
 export function DemoSection() {
   const [videoAvailable, setVideoAvailable] = useState(true)
+  const { ref: videoRef, visible: videoInView } = useReveal<HTMLVideoElement>()
+
+  // Autoplay once the video scrolls into view, rather than on page load --
+  // muted is required for browsers to allow autoplay without a click.
+  useEffect(() => {
+    if (videoInView) {
+      videoRef.current?.play().catch(() => {
+        // Autoplay can still be blocked by some browser/extension
+        // combinations even when muted -- the visible controls let the
+        // viewer start it manually in that case.
+      })
+    }
+  }, [videoInView, videoRef])
 
   return (
     <section id="demo" className="px-5 py-24 sm:px-8 md:px-12 md:py-32">
@@ -29,8 +43,11 @@ export function DemoSection() {
       >
         {videoAvailable ? (
           <video
+            ref={videoRef}
             src={DEMO_VIDEO_URL}
             controls
+            muted
+            loop
             playsInline
             className="h-full w-full"
             onError={() => setVideoAvailable(false)}

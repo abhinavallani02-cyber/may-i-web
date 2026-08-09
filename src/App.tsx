@@ -30,7 +30,7 @@ function App() {
           {/* Gives ClickThroughBackdrop room to play its cursor -> click ->
               typing story before Problem begins, so the floating card is
               always confined to Hero and never overlaps section copy. */}
-          <div id="hero-spacer" className="h-[70vh]" aria-hidden="true" />
+          <div id="hero-spacer" className="h-[90vh]" aria-hidden="true" />
           <ProblemSection />
           <SectionTwo />
           <DemoSection />
