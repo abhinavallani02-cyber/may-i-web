@@ -1,26 +1,31 @@
-import { useEffect, useState } from 'react'
-import { Play } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import * as AsciinemaPlayer from 'asciinema-player'
+import 'asciinema-player/dist/bundle/asciinema-player.css'
 import { Reveal } from './Reveal'
 import { Badge } from './Badge'
 import { useReveal } from '../hooks/useReveal'
 
-const DEMO_VIDEO_URL = '/demo.webm'
+const CAST_URL = '/demo.cast'
 
 export function DemoSection() {
-  const [videoAvailable, setVideoAvailable] = useState(true)
-  const { ref: videoRef, visible: videoInView } = useReveal<HTMLVideoElement>()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { ref: revealRef, visible: inView } = useReveal<HTMLDivElement>()
 
-  // Autoplay once the video scrolls into view, rather than on page load --
-  // muted is required for browsers to allow autoplay without a click.
+  // Mount the player once the section scrolls into view, and start
+  // playback immediately -- this is a real recorded terminal session
+  // (asciinema), not a synthetic animation, so "plays on itself" here
+  // means the actual captured mayi run starts without a click.
   useEffect(() => {
-    if (videoInView) {
-      videoRef.current?.play().catch(() => {
-        // Autoplay can still be blocked by some browser/extension
-        // combinations even when muted -- the visible controls let the
-        // viewer start it manually in that case.
-      })
-    }
-  }, [videoInView, videoRef])
+    if (!inView || !containerRef.current) return
+    const player = AsciinemaPlayer.create(CAST_URL, containerRef.current, {
+      autoPlay: true,
+      preload: true,
+      loop: true,
+      theme: 'monokai',
+      fit: 'width',
+    })
+    return () => player.dispose()
+  }, [inView])
 
   return (
     <section id="demo" className="px-5 py-24 sm:px-8 md:px-12 md:py-32">
@@ -32,44 +37,18 @@ export function DemoSection() {
           You decide, out loud.
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-sm text-white/70 sm:text-base">
-          A real terminal session: an agent tries to write a file, may-i intercepts the call,
-          and a human approves or denies it before anything happens.
+          A real terminal session, recorded with asciinema: an agent tries to write a file,
+          may-i intercepts the call, and a human approves it before anything happens.
         </p>
       </Reveal>
 
       <Reveal
         delay={150}
-        className="mx-auto mt-12 aspect-video w-full max-w-4xl overflow-hidden rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md"
+        className="mx-auto mt-12 w-full max-w-4xl overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-2 backdrop-blur-md"
       >
-        {videoAvailable ? (
-          <video
-            ref={videoRef}
-            src={DEMO_VIDEO_URL}
-            controls
-            muted
-            loop
-            playsInline
-            className="h-full w-full"
-            onError={() => setVideoAvailable(false)}
-          >
-            Your browser doesn't support embedded video.
-          </video>
-        ) : (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-4 text-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/25 bg-white/10">
-              <Play size={24} className="translate-x-0.5 text-white/70" />
-            </div>
-            <div>
-              <p className="font-mono text-xs tracking-[0.1em] text-white/60 uppercase">
-                Demo coming soon
-              </p>
-              <p className="mt-1 text-sm text-white/50">
-                Drop a recording at <code className="text-white/70">/public/demo.webm</code> to
-                fill this in.
-              </p>
-            </div>
-          </div>
-        )}
+        <div ref={revealRef}>
+          <div ref={containerRef} className="overflow-hidden rounded-xl" />
+        </div>
       </Reveal>
     </section>
   )

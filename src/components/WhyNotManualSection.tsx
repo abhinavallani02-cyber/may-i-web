@@ -15,7 +15,7 @@ const POINTS = [
   },
   {
     title: "It's shareable.",
-    body: "A policy file goes in your repo and applies to the whole team. A person's click history doesn't.",
+    body: "A policy file goes in your repo and everyone runs the same rules. A person's click history doesn't.",
   },
 ]
 

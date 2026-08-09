@@ -10,34 +10,17 @@ export function AboutSection() {
           <h2 className="mt-6 text-3xl leading-[1.1] font-normal tracking-tight text-white drop-shadow-lg sm:text-4xl">
             Abhinav Allani
           </h2>
-          <p className="mt-2 font-mono text-[11px] tracking-[0.15em] text-white/50 uppercase">
-            Founder, may-i
-          </p>
         </Reveal>
 
         <Reveal delay={150} className="flex flex-col gap-4 md:w-2/3">
           <p className="text-sm leading-relaxed text-white/80 sm:text-base">
-            I'm a high school builder and aspiring AI/ML engineer focused on turning emerging
-            technology into practical products. I've built projects across AI, education,
-            automation, and cybersecurity, and I enjoy learning by building rather than just
-            studying theory.
+            I'm a high school student who builds things — mostly at the intersection of AI and
+            security. I made may-i because agents are getting the ability to take real actions
+            faster than anyone is building the controls for them, and that gap seemed worth
+            working on.
           </p>
           <p className="text-sm leading-relaxed text-white/80 sm:text-base">
-            I'm particularly interested in AI agents, cybersecurity, and the infrastructure
-            needed to make AI systems safe and reliable. I've worked with APIs, LLMs, automation
-            workflows, Python, JavaScript, and cloud platforms, while continuously teaching
-            myself new technologies.
-          </p>
-          <p className="text-sm leading-relaxed text-white/80 sm:text-base">
-            I'm also a co-founder of SilentHelp, a privacy-focused digital wellness project, and
-            the creator of Choose &amp; Rise, an education platform designed to help students
-            make better decisions about their academic futures.
-          </p>
-          <p className="text-sm leading-relaxed text-white/80 sm:text-base">
-            I built may-i because I'm excited about the intersection of AI agents and security. As
-            agents gain the ability to take real actions, controlling what they can access and
-            execute becomes increasingly important. I want to keep building it in the open, learn
-            from anyone who uses it, and turn may-i into something developers can actually trust.
+            It's early and I'm learning in the open. If you use it and something breaks, tell me.
           </p>
         </Reveal>
       </div>
