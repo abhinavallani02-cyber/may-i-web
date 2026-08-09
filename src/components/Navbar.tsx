@@ -4,7 +4,7 @@ import { Reveal } from './Reveal'
 const NAV_LINKS = [
   { label: 'How it works', href: '#how-it-works' },
   { label: 'Quickstart', href: '#quickstart' },
-  { label: 'Status', href: '#status' },
+  { label: 'Progress', href: '#progress' },
   { label: 'GitHub', href: 'https://github.com/abhinavallani02-cyber/mayI' },
 ]
 

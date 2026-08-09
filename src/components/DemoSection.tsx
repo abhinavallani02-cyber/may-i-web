@@ -37,8 +37,9 @@ export function DemoSection() {
           You decide, out loud.
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-sm text-white/70 sm:text-base">
-          A real terminal session, recorded with asciinema: an agent tries to write a file,
-          may-i intercepts the call, and a human approves it before anything happens.
+          A real terminal session, recorded with asciinema: a write to <code className="rounded bg-white/10 px-1 py-0.5 text-white">/etc</code> is
+          blocked outright, no prompt. A write elsewhere pauses for approval — a human says
+          yes, and the file actually changes.
         </p>
       </Reveal>
 

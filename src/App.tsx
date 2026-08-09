@@ -6,10 +6,10 @@ import { SectionOne } from './components/SectionOne'
 import { ProblemSection } from './components/ProblemSection'
 import { SectionTwo } from './components/SectionTwo'
 import { DemoSection } from './components/DemoSection'
-import { WhyNotManualSection } from './components/WhyNotManualSection'
+import { DifferentiationSection } from './components/DifferentiationSection'
 import { PrivacySection } from './components/PrivacySection'
 import { QuickstartSection } from './components/QuickstartSection'
-import { StatusSection } from './components/StatusSection'
+import { ProgressSection } from './components/ProgressSection'
 import { AboutSection } from './components/AboutSection'
 import { FaqSection } from './components/FaqSection'
 import { Footer } from './components/Footer'
@@ -34,10 +34,10 @@ function App() {
           <ProblemSection />
           <SectionTwo />
           <DemoSection />
-          <WhyNotManualSection />
+          <DifferentiationSection />
           <PrivacySection />
           <QuickstartSection />
-          <StatusSection />
+          <ProgressSection />
           <AboutSection />
           <FaqSection />
         </main>

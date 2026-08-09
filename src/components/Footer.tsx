@@ -11,7 +11,7 @@ export function Footer() {
             rel="noreferrer"
             className="text-white/70 underline underline-offset-2 hover:text-white"
           >
-            github.com/abhinavallani02-cyber/mayI
+            github.com/abhinavallani02-cyber/may-i
           </a>
         </p>
       </div>

@@ -29,7 +29,7 @@ function clamp01(n: number) {
  * A fixed backdrop that plays a small story confined entirely to the
  * Hero section's scroll range: a cursor travels toward an "Allow"
  * button, clicks it, then the panel morphs into a terminal that types
- * out a real mayI session using the actual log line format from
+ * out a real may-i session using the actual log line format from
  * mayi.mjs. Progress is measured against the DOM range from the top of
  * the page to the bottom of #hero-spacer (a dedicated spacer right after
  * Hero), so it never overlaps Problem/How-it-works/Demo copy -- it's
