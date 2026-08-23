@@ -1,8 +1,8 @@
 import { Navbar } from './components/Navbar'
 import { DevBanner } from './components/DevBanner'
 import { HeroBackground } from './components/HeroBackground'
-import { ClickThroughBackdrop } from './components/ClickThroughBackdrop'
 import { SectionOne } from './components/SectionOne'
+import { useScrollProgress } from './hooks/useScrollProgress'
 import { ProblemSection } from './components/ProblemSection'
 import { SectionTwo } from './components/SectionTwo'
 import { DemoSection } from './components/DemoSection'
@@ -15,10 +15,11 @@ import { FaqSection } from './components/FaqSection'
 import { Footer } from './components/Footer'
 
 function App() {
+  const { ref: heroRef, progress: heroProgress } = useScrollProgress<HTMLDivElement>()
+
   return (
     <div className="relative bg-black">
-      <HeroBackground />
-      <ClickThroughBackdrop />
+      <HeroBackground scrollProgress={heroProgress} />
 
       <div className="relative z-10">
         <div className="fixed inset-x-0 top-0 z-50">
@@ -26,11 +27,9 @@ function App() {
           <Navbar />
         </div>
         <main>
-          <SectionOne />
-          {/* Gives ClickThroughBackdrop room to play its cursor -> click ->
-              typing story before Problem begins, so the floating card is
-              always confined to Hero and never overlaps section copy. */}
-          <div id="hero-spacer" className="h-[90vh]" aria-hidden="true" />
+          <div ref={heroRef}>
+            <SectionOne scrollProgress={heroProgress} />
+          </div>
           <ProblemSection />
           <SectionTwo />
           <DemoSection />

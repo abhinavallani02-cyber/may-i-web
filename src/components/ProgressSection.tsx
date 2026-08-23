@@ -58,6 +58,13 @@ const NEXT = [
   },
 ]
 
+const LIMITATIONS = [
+  {
+    title: 'Ask verdicts need a visible terminal.',
+    body: "The approval prompt is written to /dev/tty, so it only appears if a human is watching the actual terminal running mayi.mjs. Driving may-i through an editor extension instead of a raw terminal — VS Code's Claude Code extension, for one — means the prompt renders nowhere in that UI and silently times out to deny after 30 seconds. Confirmed with a real write_file call that denied with no prompt visible anywhere. This is a design gap, not a bug: the approval flow assumes CLI usage. The real fix is surfacing the prompt through MCP's own elicitation/create request instead of the tty, so any client can render and answer it — not implemented yet.",
+  },
+]
+
 export function ProgressSection() {
   return (
     <section id="progress" className="px-5 py-24 sm:px-8 md:px-12 md:py-32">
@@ -121,6 +128,22 @@ export function ProgressSection() {
         </Reveal>
         <div className="mt-6 flex flex-col gap-4">
           {NEXT.map((item, i) => (
+            <Reveal
+              key={item.title}
+              delay={280 + i * 90}
+              className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-md"
+            >
+              <h3 className="text-sm font-medium text-white sm:text-base">{item.title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-white/70">{item.body}</p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={200} className="mt-14">
+          <Badge>Known limitations</Badge>
+        </Reveal>
+        <div className="mt-6 flex flex-col gap-4">
+          {LIMITATIONS.map((item, i) => (
             <Reveal
               key={item.title}
               delay={280 + i * 90}
