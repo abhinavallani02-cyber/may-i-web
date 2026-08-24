@@ -60,8 +60,8 @@ const NEXT = [
 
 const LIMITATIONS = [
   {
-    title: 'Ask verdicts need a visible terminal.',
-    body: "The approval prompt is written to /dev/tty, so it only appears if a human is watching the actual terminal running mayi.mjs. Driving may-i through an editor extension instead of a raw terminal — VS Code's Claude Code extension, for one — means the prompt renders nowhere in that UI and silently times out to deny after 30 seconds. Confirmed with a real write_file call that denied with no prompt visible anywhere. This is a design gap, not a bug: the approval flow assumes CLI usage. The real fix is surfacing the prompt through MCP's own elicitation/create request instead of the tty, so any client can render and answer it — not implemented yet.",
+    title: "Elicitation works — Claude Code's VS Code extension doesn't render it yet.",
+    body: "ask verdicts now prefer MCP's own elicitation/create request over the old /dev/tty prompt, so approval renders in the client's UI instead of a terminal only a human happens to be watching. Verified correct end to end against a real elicitation-capable test client. Against Claude Code's VS Code extension specifically, the request is silently auto-declined — the extension declares support for elicitation at initialize, but treats interactive sessions as non-interactive (\"print mode\") for this one request type, even though it renders other prompts fine. That's a confirmed, open upstream bug (anthropics/claude-code#79174), not something on may-i's side — falls back to /dev/tty automatically for clients that don't declare elicitation support at all.",
   },
 ]
 
