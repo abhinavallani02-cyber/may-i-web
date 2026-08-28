@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import { Reveal } from './Reveal'
-import { HeroObject } from './HeroObject'
+import { HeroLaptop } from './HeroLaptop'
 
 /**
  * The hero: a left-aligned editorial column against a near-black field,
@@ -64,10 +64,14 @@ export function SectionOne() {
           </Reveal>
         </div>
 
-        {/* Right: the object */}
-        <Reveal delay={250} className="mx-auto w-full max-w-md md:max-w-none">
-          <HeroObject />
-        </Reveal>
+        {/* Right: the laptop, running the real recorded session. Not
+            wrapped in Reveal -- that sets transitionProperty: all, which
+            would transition the laptop's own scroll-linked transform on
+            every frame and drag it behind the scroll by 700ms. It brings
+            its own entrance instead. */}
+        <div className="mx-auto w-full max-w-lg md:max-w-none">
+          <HeroLaptop />
+        </div>
       </div>
     </section>
   )

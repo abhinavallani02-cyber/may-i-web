@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "asciinema-player": "^3.17.0",
     "lucide-react": "^1.30.0",
+    "motion": "^13.1.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tailwindcss": "^4.3.3"
