@@ -1,9 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'Inter', system-ui, sans-serif;
+  /* High-contrast display serif for the hero headline -- the free
+     counterpart to the licensed serif this hero's layout is modeled on. */
+  --font-display: 'Instrument Serif', Georgia, serif;
 }
 
 * {
