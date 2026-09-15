@@ -50,9 +50,9 @@ export function CopyCommand({
   return (
     <div
       id={id}
-      className={`flex w-full max-w-3xl items-center gap-2 rounded-full p-1.5 pl-4 sm:pl-5 ${wrap}`}
+      className={`flex w-full min-w-0 items-center gap-2 rounded-full p-1.5 pl-4 sm:pl-5 ${wrap}`}
     >
-      <code className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-[11px] leading-none tracking-tight sm:text-[13px]">
+      <code className="min-w-0 flex-1 overflow-x-auto overflow-y-hidden whitespace-nowrap font-mono text-[11px] leading-none tracking-tight sm:text-[13px]">
         {command}
       </code>
       <button

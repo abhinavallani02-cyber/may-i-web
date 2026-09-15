@@ -43,8 +43,8 @@ export function HeroLaptop() {
       animate(
         frame,
         {
-          transform: [
-            'perspective(1600px) rotateX(16deg) scale(0.94) translateY(28px)',
+            transform: [
+            'perspective(1600px) rotateX(8deg) scale(0.97) translateY(12px)',
             'perspective(1600px) rotateX(0deg) scale(1) translateY(0px)',
           ],
         },
@@ -78,7 +78,7 @@ export function HeroLaptop() {
             </div>
           </div>
         </div>
-        <div className="mx-auto h-2.5 w-[106%] -translate-x-[3%] rounded-b-xl bg-gradient-to-b from-white/30 to-white/10" />
+        <div className="mx-auto h-2.5 w-full rounded-b-xl bg-gradient-to-b from-white/30 to-white/10" />
         <div className="mx-auto h-1 w-[24%] rounded-b-md bg-white/20" />
       </div>
     </div>

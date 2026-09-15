@@ -35,7 +35,12 @@ export function TrustSection() {
             may-i has to read tool calls to decide on them. File paths and payloads pass through
             it. Here’s exactly what happens to them.
           </p>
-          <ul className="mt-8 flex flex-col gap-5">
+          <div className="mt-8">
+            <Pill href={GITHUB_URL} variant="dark">
+              Read the code
+            </Pill>
+          </div>
+          <ul className="mt-10 flex flex-col gap-5">
             {BULLETS.map((item) => (
               <li key={item.title}>
                 <p className="text-[16px] font-semibold tracking-tight text-ink">{item.title}</p>
@@ -43,11 +48,6 @@ export function TrustSection() {
               </li>
             ))}
           </ul>
-          <div className="mt-10">
-            <Pill href={GITHUB_URL} variant="dark">
-              Read the code
-            </Pill>
-          </div>
         </Reveal>
 
         <Reveal delay={0.1} className="flex justify-center lg:justify-end">

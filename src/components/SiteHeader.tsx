@@ -12,7 +12,7 @@ const NAV_LINKS = [
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 bg-white">
-      <div className="flex h-10 items-center justify-center border-b border-black/[0.06] px-4 text-center">
+      <div className="flex min-h-10 items-center justify-center border-b border-black/[0.06] px-4 py-2 text-center">
         <p className="text-[12px] leading-none text-muted sm:text-[13px]">
           In active development — expect rough edges.{' '}
           <a
