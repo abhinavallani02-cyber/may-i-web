@@ -1,12 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Sora:wght@600;700;800&display=swap');
+@import 'tailwindcss';
+@import 'asciinema-player/dist/bundle/asciinema-player.css';
 
 @theme {
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'Inter', system-ui, sans-serif;
-  /* High-contrast display serif for the hero headline -- the free
-     counterpart to the licensed serif this hero's layout is modeled on. */
-  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Sora', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+
+  --color-ink: #0e0e0e;
+  --color-charcoal: #161616;
+  --color-muted: #5c5c5c;
+  --color-line: #e8e8e8;
+  --color-hero: #3aa0dc;
 }
 
 * {
@@ -17,16 +22,57 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: #000000;
-  color: #ffffff;
+  background: #ffffff;
+  color: #0e0e0e;
+}
+
+html {
+  scroll-padding-top: 6.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background-color: rgba(255, 255, 255, 0.2);
+  background: #0e0e0e;
+  color: #ffffff;
+}
+
+.hero-sky {
+  background:
+    radial-gradient(ellipse 70% 50% at 78% 28%, rgba(255, 255, 255, 0.38), transparent 58%),
+    radial-gradient(ellipse 55% 40% at 12% 88%, rgba(255, 255, 255, 0.18), transparent 60%),
+    linear-gradient(180deg, #2f94d4 0%, #4eade3 46%, #7ec8ef 100%);
+}
+
+/* Product mockup: hide asciinema chrome so the laptop reads as a device. */
+.hero-terminal .ap-wrapper {
+  width: 100%;
+}
+
+.hero-terminal .ap-control-bar,
+.hero-terminal .ap-overlay-start {
+  display: none !important;
+}
+
+.hero-terminal .ap-player {
+  background: #0a0a0a;
+  border-radius: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-laptop-frame {
+    transform: none !important;
+  }
 }

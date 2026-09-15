@@ -1,34 +1,32 @@
-import type { ElementType, ReactNode } from 'react'
-import { revealClasses, useReveal } from '../hooks/useReveal'
+import type { ReactNode } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
 
-interface RevealProps {
+export function Reveal({
+  children,
+  className = '',
+  delay = 0,
+  y = 36,
+}: {
   children: ReactNode
-  delay?: number
   className?: string
-  as?: ElementType
-}
-
-/**
- * Wraps children in the standard fade-up reveal used throughout the page:
- * hidden -> translate-y-8 opacity-0, visible -> translate-y-0 opacity-100,
- * transition all 700ms ease-out, with a per-instance transition-delay.
- */
-export function Reveal({ children, delay = 0, className = '', as: Tag = 'div' }: RevealProps) {
-  const { ref, visible } = useReveal<HTMLDivElement>()
+  delay?: number
+  y?: number
+}) {
+  const reduce = useReducedMotion() === true
 
   return (
-    <Tag
-      ref={ref}
-      className={`${revealClasses(visible)} ${className}`}
-      style={{
-        transitionProperty: 'all',
-        transitionDuration: '700ms',
-        transitionTimingFunction: 'ease-out',
-        transitionDelay: `${delay}ms`,
-        willChange: 'transform',
+    <motion.div
+      className={className}
+      initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.22 }}
+      transition={{
+        duration: reduce ? 0 : 0.7,
+        delay: reduce ? 0 : delay,
+        ease: [0.22, 1, 0.36, 1],
       }}
     >
       {children}
-    </Tag>
+    </motion.div>
   )
 }
