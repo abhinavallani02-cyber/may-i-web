@@ -27,12 +27,15 @@ const LIMITS = [
 
 export function LimitsSection() {
   return (
-    <section id="limits" className="bg-black px-5 py-24 sm:px-8 md:py-32 lg:px-12">
+    <section id="limits" className="border-t border-white/8 bg-void px-5 py-24 sm:px-8 md:py-32 lg:px-12">
       <Reveal>
-        <h2 className="font-display mx-auto max-w-3xl text-center text-5xl leading-[0.95] font-extrabold tracking-[-0.045em] text-white sm:text-6xl lg:text-[72px]">
-          Honest limits.
+        <p className="text-center text-[12px] font-bold tracking-[0.22em] text-acid uppercase">
+          Limitations
+        </p>
+        <h2 className="font-display mx-auto mt-4 max-w-3xl text-center text-5xl leading-[0.88] font-extrabold tracking-[-0.045em] text-white uppercase sm:text-6xl lg:text-[72px]">
+          Honest limits
         </h2>
-        <p className="mx-auto mt-5 max-w-lg text-center text-[16px] leading-relaxed text-white/60">
+        <p className="mx-auto mt-5 max-w-lg text-center text-[16px] leading-relaxed text-muted">
           Early software. These are the edges, not a roadmap dressed as a promise.
         </p>
       </Reveal>
@@ -40,18 +43,18 @@ export function LimitsSection() {
       <div className="mx-auto mt-14 grid max-w-5xl gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {LIMITS.map((item, i) => (
           <Reveal key={item.title} delay={0.05 * i}>
-            <div className="h-full rounded-[24px] bg-white/[0.05] p-6 ring-1 ring-white/10">
-              <h3 className="text-[17px] font-semibold tracking-tight text-white">{item.title}</h3>
-              <p className="mt-2 text-[14px] leading-relaxed text-white/60">{item.body}</p>
+            <div className="h-full rounded-2xl bg-[#121212] p-6 ring-1 ring-white/10">
+              <h3 className="font-display text-[18px] font-extrabold tracking-tight text-white uppercase">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-[14px] leading-relaxed text-muted">{item.body}</p>
             </div>
           </Reveal>
         ))}
       </div>
 
       <div className="mt-12 flex justify-center">
-        <Pill href={GITHUB_URL} variant="light">
-          Open on GitHub
-        </Pill>
+        <Pill href={GITHUB_URL}>Open on GitHub</Pill>
       </div>
     </section>
   )

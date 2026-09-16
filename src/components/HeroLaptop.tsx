@@ -4,9 +4,8 @@ import { animate, scroll } from 'motion'
 import { CAST_URL } from '../lib/site'
 
 /**
- * Large product mockup whose screen is a real recorded may-i session.
- * Scroll-linked tilt is applied on the compositor via Motion, and skipped
- * when the user prefers reduced motion.
+ * Product focal: a laptop whose screen is a real recorded may-i session.
+ * Scroll-linked rotation is compositor-only and skipped for reduced motion.
  */
 export function HeroLaptop() {
   const terminalRef = useRef<HTMLDivElement>(null)
@@ -32,7 +31,7 @@ export function HeroLaptop() {
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) {
-      frame.style.transform = 'perspective(1600px) rotateX(0deg) scale(1)'
+      frame.style.transform = 'perspective(1600px) rotateY(0deg) rotateX(0deg) scale(1)'
       return
     }
 
@@ -43,9 +42,9 @@ export function HeroLaptop() {
       animate(
         frame,
         {
-            transform: [
-            'perspective(1600px) rotateX(8deg) scale(0.97) translateY(12px)',
-            'perspective(1600px) rotateX(0deg) scale(1) translateY(0px)',
+          transform: [
+            'perspective(1600px) rotateY(-22deg) rotateX(10deg) scale(0.9)',
+            'perspective(1600px) rotateY(0deg) rotateX(0deg) scale(1)',
           ],
         },
         { ease: 'linear' },
@@ -61,8 +60,8 @@ export function HeroLaptop() {
   return (
     <div className="w-full" style={{ perspective: '1600px' }}>
       <div ref={frameRef} className="hero-laptop-frame origin-bottom will-change-transform">
-        <div className="rounded-t-2xl border border-b-0 border-white/20 bg-[#111] p-2.5 shadow-[0_40px_100px_rgba(8,40,70,0.35)] sm:p-3">
-          <div className="mx-auto mb-2 h-1.5 w-1.5 rounded-full bg-white/20" />
+        <div className="rounded-t-2xl border border-b-0 border-acid/25 bg-[#111] p-2.5 shadow-[0_0_80px_rgba(210,255,0,0.16),0_40px_80px_rgba(0,0,0,0.55)] sm:p-3">
+          <div className="mx-auto mb-2 h-1.5 w-1.5 rounded-full bg-acid/70" />
           <div className="overflow-hidden rounded-lg border border-white/10 bg-black">
             <div className="flex items-center gap-1.5 border-b border-white/8 bg-white/[0.04] px-3 py-2">
               <span className="h-2 w-2 rounded-full bg-white/18" />
@@ -78,8 +77,8 @@ export function HeroLaptop() {
             </div>
           </div>
         </div>
-        <div className="mx-auto h-2.5 w-full rounded-b-xl bg-gradient-to-b from-white/30 to-white/10" />
-        <div className="mx-auto h-1 w-[24%] rounded-b-md bg-white/20" />
+        <div className="mx-auto h-2.5 w-full rounded-b-xl bg-gradient-to-b from-white/20 to-white/5" />
+        <div className="mx-auto h-1 w-[24%] rounded-b-md bg-acid/30" />
       </div>
     </div>
   )

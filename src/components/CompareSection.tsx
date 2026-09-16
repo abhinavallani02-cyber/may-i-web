@@ -1,77 +1,67 @@
-import { ArrowUpRight } from 'lucide-react'
 import { Reveal } from './Reveal'
 
-const PLANS = [
+const CARDS = [
   {
     name: 'Built-in prompts',
-    price: 'Already there',
+    kicker: 'Already there',
     body: 'Fine for one agent, on your own machine, when the worst case is losing an afternoon. Every decision is a click in the moment.',
     points: ['No setup', 'One tool at a time', 'No searchable record'],
     href: '#faq',
-    featured: false,
+    tone: 'sand' as const,
   },
   {
     name: 'may-i',
-    price: 'A file you write once',
+    kicker: 'A file you write once',
     body: 'Deny without asking. One policy for every MCP agent. An append-only log when someone asks what happened.',
     points: ['Blocks without a prompt', 'Shareable YAML', 'Fail closed by default'],
     href: '#install',
-    featured: true,
+    tone: 'acid' as const,
+  },
+  {
+    name: 'Fail closed',
+    kicker: 'Default deny',
+    body: 'Last rule should ask. Anything you haven’t reasoned about stops. Silence times out to deny.',
+    points: ['First match wins', 'No silent allow', 'Human in the loop'],
+    href: '#how-it-works',
+    tone: 'paper' as const,
   },
 ]
 
+const TONE = {
+  sand: 'bg-[#cfc9bc] text-ink',
+  acid: 'bg-acid text-ink',
+  paper: 'bg-white text-ink',
+}
+
 export function CompareSection() {
   return (
-    <section id="compare" className="bg-charcoal px-5 py-24 sm:px-8 md:py-32 lg:px-12">
+    <section id="compare" className="bg-void px-5 py-24 sm:px-8 md:py-32 lg:px-12">
       <Reveal>
-        <h2 className="font-display mx-auto max-w-4xl text-center text-5xl leading-[0.95] font-extrabold tracking-[-0.045em] text-white sm:text-6xl lg:text-[72px]">
+        <p className="text-center text-[12px] font-bold tracking-[0.22em] text-acid uppercase">
+          Compact vs built-in
+        </p>
+        <h2 className="font-display mx-auto mt-4 max-w-4xl text-center text-5xl leading-[0.88] font-extrabold tracking-[-0.045em] text-white uppercase sm:text-6xl lg:text-[72px]">
           Built-in is a prompt.
           <br />
           This is a policy.
         </h2>
       </Reveal>
 
-      <div className="mx-auto mt-14 grid max-w-5xl gap-4 md:grid-cols-2">
-        {PLANS.map((plan, i) => (
-          <Reveal key={plan.name} delay={0.08 * i}>
+      <div className="mx-auto mt-14 grid max-w-6xl gap-4 md:grid-cols-3">
+        {CARDS.map((card, i) => (
+          <Reveal key={card.name} delay={0.08 * i}>
             <a
-              href={plan.href}
-              className={`group flex h-full flex-col rounded-[28px] p-8 motion-safe:transition-transform motion-safe:duration-300 motion-safe:hover:-translate-y-1 ${
-                plan.featured ? 'bg-white text-ink' : 'bg-white/[0.06] text-white ring-1 ring-white/10'
-              }`}
+              href={card.href}
+              className={`group flex h-full min-h-[320px] flex-col justify-end rounded-2xl p-7 motion-safe:transition-transform motion-safe:duration-300 motion-safe:hover:-translate-y-1 ${TONE[card.tone]}`}
             >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="font-display text-3xl font-extrabold tracking-tight">{plan.name}</h3>
-                  <p
-                    className={`mt-1 text-sm font-semibold ${plan.featured ? 'text-ink/55' : 'text-white/50'}`}
-                  >
-                    {plan.price}
-                  </p>
-                </div>
-                <span
-                  className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
-                    plan.featured
-                      ? 'bg-black text-white group-hover:bg-neutral-800'
-                      : 'bg-white/10 text-white group-hover:bg-white/20'
-                  }`}
-                >
-                  <ArrowUpRight size={18} />
-                </span>
-              </div>
-              <p
-                className={`mt-6 text-[15px] leading-relaxed ${plan.featured ? 'text-ink/70' : 'text-white/65'}`}
-              >
-                {plan.body}
-              </p>
-              <ul className="mt-6 flex flex-col gap-2">
-                {plan.points.map((point) => (
-                  <li
-                    key={point}
-                    className={`text-[14px] ${plan.featured ? 'text-ink/80' : 'text-white/75'}`}
-                  >
-                    {point}
-                  </li>
+              <p className="text-[11px] font-bold tracking-[0.16em] uppercase opacity-55">{card.kicker}</p>
+              <h3 className="font-display mt-3 text-[28px] leading-[0.95] font-extrabold tracking-tight uppercase">
+                {card.name}
+              </h3>
+              <p className="mt-4 text-[14px] leading-relaxed text-black/70">{card.body}</p>
+              <ul className="mt-5 flex flex-col gap-1.5 text-[13px] font-medium text-black/80">
+                {card.points.map((point) => (
+                  <li key={point}>▸ {point}</li>
                 ))}
               </ul>
             </a>

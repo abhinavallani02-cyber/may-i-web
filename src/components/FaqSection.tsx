@@ -36,10 +36,13 @@ export function FaqSection() {
   const [open, setOpen] = useState(0)
 
   return (
-    <section id="faq" className="bg-white px-5 py-24 sm:px-8 md:py-32 lg:px-12">
+    <section id="faq" className="bg-fog px-5 py-24 text-ink sm:px-8 md:py-32 lg:px-12">
       <Reveal>
-        <h2 className="font-display mx-auto max-w-3xl text-center text-5xl leading-[0.95] font-extrabold tracking-[-0.045em] text-ink sm:text-6xl lg:text-[72px]">
-          Questions.
+        <p className="text-center text-[12px] font-bold tracking-[0.22em] text-black/40 uppercase">
+          FAQ
+        </p>
+        <h2 className="font-display mx-auto mt-4 max-w-3xl text-center text-5xl leading-[0.88] font-extrabold tracking-[-0.045em] uppercase sm:text-6xl lg:text-[72px]">
+          Questions
         </h2>
       </Reveal>
 
@@ -55,21 +58,16 @@ export function FaqSection() {
                 aria-expanded={isOpen}
               >
                 <span>
-                  <span className="block text-[17px] font-semibold tracking-tight text-ink">
-                    {item.q}
-                  </span>
+                  <span className="block text-[16px] font-semibold tracking-tight">{item.q}</span>
                   <span
-                    className={`mt-2 block text-[15px] leading-relaxed text-muted ${
+                    className={`mt-2 block text-[15px] leading-relaxed text-black/55 ${
                       isOpen ? '' : 'hidden'
                     }`}
                   >
                     {item.a}
                   </span>
                 </span>
-                <span
-                  aria-hidden="true"
-                  className="mt-1 text-2xl leading-none font-light text-ink/40"
-                >
+                <span aria-hidden="true" className="mt-1 font-display text-xl text-black/35">
                   {isOpen ? '–' : '+'}
                 </span>
               </button>
