@@ -43,7 +43,7 @@ export function HeroLaptop() {
         frame,
         {
           transform: [
-            'perspective(1600px) rotateY(-22deg) rotateX(10deg) scale(0.9)',
+            'perspective(1600px) rotateY(-12deg) rotateX(8deg) scale(0.94)',
             'perspective(1600px) rotateY(0deg) rotateX(0deg) scale(1)',
           ],
         },
