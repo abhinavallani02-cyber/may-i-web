@@ -1,12 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Syne:wght@700;800&display=swap');
+@import 'tailwindcss';
+@import 'asciinema-player/dist/bundle/asciinema-player.css';
 
 @theme {
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'Inter', system-ui, sans-serif;
-  /* High-contrast display serif for the hero headline -- the free
-     counterpart to the licensed serif this hero's layout is modeled on. */
-  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Syne', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+
+  --color-void: #0a0a0a;
+  --color-ink: #0a0a0a;
+  --color-fog: #e8e8e8;
+  --color-muted: #8a8a8a;
+  --color-line: #2a2a2a;
+  --color-acid: #d2ff00;
+  --color-cyan: #3ad0ff;
+  --color-magenta: #ff3dce;
 }
 
 * {
@@ -17,16 +25,96 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: #000000;
-  color: #ffffff;
+  background: #0a0a0a;
+  color: #f2f2f2;
+}
+
+html {
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background-color: rgba(255, 255, 255, 0.2);
+  background: #d2ff00;
+  color: #0a0a0a;
+}
+
+.hero-terminal .ap-wrapper {
+  width: 100%;
+}
+
+.hero-terminal .ap-control-bar,
+.hero-terminal .ap-overlay-start {
+  display: none !important;
+}
+
+.hero-terminal .ap-player {
+  background: #0a0a0a;
+  border-radius: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(18px, -22px);
+  }
+}
+
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-16px, 14px);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.drift-a {
+  animation: drift-a 9s ease-in-out infinite;
+}
+
+.drift-b {
+  animation: drift-b 11s ease-in-out infinite;
+}
+
+.spin-slow {
+  animation: spin-slow 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-laptop-frame {
+    transform: none !important;
+  }
+
+  .drift-a,
+  .drift-b,
+  .spin-slow {
+    animation: none;
+  }
 }
