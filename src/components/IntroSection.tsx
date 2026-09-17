@@ -42,7 +42,7 @@ export function IntroSection() {
 
 function NetworkGraphic() {
   return (
-    <div className="relative h-[380px] w-full max-w-[420px] sm:h-[440px]">
+    <div className="relative h-[400px] w-full max-w-[440px] sm:h-[460px]">
       <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
         {ORBITS.map((orb) => (
           <line
@@ -68,7 +68,7 @@ function NetworkGraphic() {
         </div>
       ))}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <LimeMark size={168} scrollTargetId="how-it-works" />
+        <LimeMark size={196} scrollTargetId="how-it-works" />
       </div>
     </div>
   )

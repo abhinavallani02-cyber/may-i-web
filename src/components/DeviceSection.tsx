@@ -5,12 +5,12 @@ import { LimeMark } from './LimeMark'
 import { Reveal } from './Reveal'
 
 const FEATURES = [
-  'Allow — forward untouched',
-  'Deny — block before the tool',
-  'Ask — pause for a human',
-  'Append-only audit log',
+  'Allow',
+  'Deny',
+  'Ask',
+  'Audit log',
   'First match wins',
-  'Fail closed / default-deny',
+  'Fail closed',
 ]
 
 const TABS = ['Policy', 'Allow', 'Deny', 'Ask'] as const
@@ -38,6 +38,13 @@ Anything you haven’t reasoned
 about stops. Silence denies.`,
 }
 
+const TAB_STATUS: Record<(typeof TABS)[number], { value: string; hint: string }> = {
+  Policy: { value: 'YAML', hint: 'active' },
+  Allow: { value: 'ALLOW', hint: 'forward' },
+  Deny: { value: 'DENY', hint: 'blocked' },
+  Ask: { value: 'ASK', hint: 'paused' },
+}
+
 export function DeviceSection() {
   const [tab, setTab] = useState<(typeof TABS)[number]>('Policy')
   const [copied, setCopied] = useState(false)
@@ -51,6 +58,8 @@ export function DeviceSection() {
       return
     }
   }
+
+  const status = TAB_STATUS[tab]
 
   return (
     <section id="policy" className="bg-void px-5 pt-10 pb-24 sm:px-8 lg:px-16">
@@ -78,7 +87,7 @@ export function DeviceSection() {
             {FEATURES.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-2 text-[13px] font-bold tracking-[0.12em] text-white uppercase"
+                className="flex items-start gap-2 text-[13px] font-bold tracking-[0.14em] text-white uppercase"
               >
                 <span className="mt-0.5 text-acid">▸</span>
                 {item}
@@ -114,18 +123,48 @@ export function DeviceSection() {
                   {tab === item ? <span className="mt-2 block h-[2px] bg-acid" /> : null}
                 </button>
               ))}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/8 px-4 py-3 sm:px-6">
+              <div className="flex flex-wrap gap-2">
+                {TABS.map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => setTab(item)}
+                    className={`rounded-md px-3 py-1.5 text-[11px] font-bold tracking-[0.12em] uppercase ${
+                      tab === item
+                        ? 'bg-[#1a1a1a] text-white ring-1 ring-white/15'
+                        : 'text-white/40 hover:text-white/70'
+                    }`}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+              <div className="text-right">
+                <p className="font-display text-[28px] leading-none font-extrabold tracking-tight text-acid sm:text-[34px]">
+                  {status.value}
+                </p>
+                <p className="mt-1 text-[11px] tracking-[0.14em] text-white/35 uppercase">
+                  {status.hint}
+                </p>
+              </div>
+            </div>
+
+            <div className="relative">
+              <pre className="min-h-[280px] overflow-x-auto p-6 font-mono text-[13px] leading-relaxed text-white/80 sm:p-8 sm:text-[14px]">
+                {TAB_COPY[tab]}
+              </pre>
               <button
                 type="button"
                 onClick={() => void copySample()}
-                className="ml-auto mb-2 inline-flex items-center gap-1.5 rounded-md bg-acid px-3 py-1.5 text-[10px] font-bold tracking-[0.14em] text-black uppercase"
+                className="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-md bg-acid px-3 py-1.5 text-[10px] font-bold tracking-[0.14em] text-black uppercase"
               >
                 {copied ? <Check size={12} /> : <Copy size={12} />}
                 {copied ? 'Copied' : 'Copy YAML'}
               </button>
             </div>
-            <pre className="min-h-[280px] overflow-x-auto p-6 font-mono text-[13px] leading-relaxed text-white/80 sm:p-8 sm:text-[14px]">
-              {TAB_COPY[tab]}
-            </pre>
           </div>
         </Reveal>
       </div>

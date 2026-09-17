@@ -2,11 +2,11 @@ import type { ReactNode } from 'react'
 
 const variants = {
   acid:
-    'bg-acid text-black hover:bg-[#d8ff33] rounded-md uppercase tracking-[0.14em] text-[11px] font-bold',
+    'bg-acid text-black hover:bg-[#d8ff33] rounded-lg uppercase tracking-[0.14em] text-[11px] font-bold',
   ghost:
-    'bg-[#1a1a1a] text-white ring-1 ring-white/10 hover:bg-[#222] rounded-md uppercase tracking-[0.14em] text-[11px] font-bold',
+    'bg-[#1a1a1a] text-white ring-1 ring-white/10 hover:bg-[#222] rounded-lg uppercase tracking-[0.14em] text-[11px] font-bold',
   outline:
-    'bg-transparent text-ink ring-1 ring-black/15 hover:bg-black/[0.04] rounded-md uppercase tracking-[0.14em] text-[11px] font-bold',
+    'bg-transparent text-ink ring-1 ring-black/15 hover:bg-black/[0.04] rounded-lg uppercase tracking-[0.14em] text-[11px] font-bold',
 } as const
 
 export function Pill({

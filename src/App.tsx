@@ -4,6 +4,7 @@ import { MarqueeSection } from './components/MarqueeSection'
 import { IntroSection } from './components/IntroSection'
 import { DeviceSection } from './components/DeviceSection'
 import { CompareSection } from './components/CompareSection'
+import { VerdictsSection } from './components/VerdictsSection'
 import { StatsSection } from './components/StatsSection'
 import { LimitsSection } from './components/LimitsSection'
 import { FaqSection } from './components/FaqSection'
@@ -19,6 +20,7 @@ function App() {
         <IntroSection />
         <DeviceSection />
         <CompareSection />
+        <VerdictsSection />
         <StatsSection />
         <LimitsSection />
         <FaqSection />

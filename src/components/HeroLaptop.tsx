@@ -4,7 +4,8 @@ import { animate, scroll } from 'motion'
 import { CAST_URL } from '../lib/site'
 
 /**
- * Codex-style glowing device: lime bezel, live may-i recording on the screen.
+ * Compact Codex-style glowing device: lime bezel, live may-i recording.
+ * Sits on the first headline line like Codex’s cube — not a full-bleed laptop.
  */
 export function HeroLaptop() {
   const terminalRef = useRef<HTMLDivElement>(null)
@@ -19,7 +20,7 @@ export function HeroLaptop() {
       theme: 'monokai',
       fit: 'width',
       controls: false,
-      terminalFontSize: '12px',
+      terminalFontSize: '10px',
     })
     return () => player.dispose()
   }, [])
@@ -29,7 +30,7 @@ export function HeroLaptop() {
     if (!frame) return
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) {
-      frame.style.transform = 'perspective(1400px) rotateY(12deg) rotateX(-8deg)'
+      frame.style.transform = 'rotateX(-16deg) rotateY(18deg)'
       return
     }
     const hero = document.getElementById('hero')
@@ -39,8 +40,8 @@ export function HeroLaptop() {
         frame,
         {
           transform: [
-            'perspective(1400px) rotateY(-18deg) rotateX(12deg) scale(0.92)',
-            'perspective(1400px) rotateY(16deg) rotateX(-6deg) scale(1)',
+            'rotateX(-28deg) rotateY(-22deg) scale(0.92)',
+            'rotateX(-10deg) rotateY(26deg) scale(1)',
           ],
         },
         { ease: 'linear' },
@@ -51,22 +52,26 @@ export function HeroLaptop() {
   }, [])
 
   return (
-    <div className="w-full" style={{ perspective: '1400px' }}>
-      <div ref={frameRef} className="hero-laptop-frame origin-center will-change-transform">
-        <div className="rounded-[26px] bg-acid p-[3px] shadow-[0_0_80px_rgba(204,255,0,0.38),0_30px_80px_rgba(0,0,0,0.65)]">
-          <div className="overflow-hidden rounded-[23px] bg-[#070707]">
-            <div className="flex items-center gap-1.5 border-b border-white/8 bg-white/[0.03] px-3 py-2">
+    <div className="w-full" style={{ perspective: '1200px' }}>
+      <div
+        ref={frameRef}
+        className="hero-laptop-frame origin-center will-change-transform"
+        style={{ transform: 'rotateX(-16deg) rotateY(18deg)' }}
+      >
+        <div className="rounded-[28px] bg-acid p-[4px] shadow-[0_0_90px_rgba(204,255,0,0.5),0_24px_60px_rgba(0,0,0,0.55)]">
+          <div className="overflow-hidden rounded-[24px] bg-[#070707]">
+            <div className="flex items-center gap-1.5 border-b border-white/8 bg-white/[0.03] px-2.5 py-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-acid" />
               <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
               <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
-              <span className="ml-2 font-mono text-[10px] tracking-[0.14em] text-white/35 uppercase">
-                mayi — approval
+              <span className="ml-1.5 font-mono text-[8px] tracking-[0.16em] text-white/40 uppercase">
+                mayi
               </span>
             </div>
-            <div className="hero-terminal relative h-[200px] overflow-hidden bg-black sm:h-[240px] lg:h-[280px]">
+            <div className="hero-terminal relative h-[92px] overflow-hidden bg-black sm:h-[108px]">
               <div
                 ref={terminalRef}
-                className="absolute top-0 left-0 w-[128%] origin-top-left text-[10px]"
+                className="absolute top-0 left-0 w-[160%] origin-top-left"
               />
             </div>
           </div>

@@ -29,7 +29,7 @@ const LIMITS = [
 
 export function LimitsSection() {
   return (
-    <section id="limits" className="bg-fog px-5 pb-8 text-ink sm:px-8 lg:px-16">
+    <section id="limits" className="bg-fog px-5 py-16 text-ink sm:px-8 lg:px-16">
       <Reveal>
         <h2 className="font-display mx-auto max-w-4xl text-center text-[36px] leading-[0.92] font-extrabold tracking-[-0.04em] uppercase sm:text-5xl">
           Honest limits

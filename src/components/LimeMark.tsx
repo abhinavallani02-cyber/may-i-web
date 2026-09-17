@@ -11,6 +11,7 @@ export function LimeMark({
   scrollTargetId?: string
 }) {
   const frameRef = useRef<HTMLDivElement>(null)
+  const fontSize = Math.round(size * 0.2)
 
   useEffect(() => {
     const frame = frameRef.current
@@ -43,10 +44,13 @@ export function LimeMark({
     <div className="relative" style={{ width: size, height: size, perspective: size * 4 }}>
       <div
         ref={frameRef}
-        className="lime-mark-frame flex h-full w-full items-center justify-center rounded-[28px] bg-acid shadow-[0_0_90px_rgba(204,255,0,0.42)] will-change-transform"
+        className="lime-mark-frame flex h-full w-full items-center justify-center rounded-[28px] bg-acid px-2 shadow-[0_0_90px_rgba(204,255,0,0.42)] will-change-transform"
         style={{ transform: 'rotateX(-16deg) rotateY(18deg)' }}
       >
-        <span className="font-display text-[clamp(28px,5vw,44px)] font-extrabold tracking-[0.08em] text-black uppercase">
+        <span
+          className="font-display text-center leading-none font-extrabold text-black uppercase"
+          style={{ fontSize, letterSpacing: '0.04em' }}
+        >
           {label}
         </span>
       </div>
