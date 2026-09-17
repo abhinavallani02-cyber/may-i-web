@@ -1,5 +1,7 @@
 import { Cta } from './Cta'
 import { GITHUB_URL } from '../lib/site'
+import { motion, useReducedMotion } from 'motion/react'
+import { EASE } from './Reveal'
 
 const NAV_LINKS = [
   { label: 'Product', href: '#how-it-works' },
@@ -9,16 +11,26 @@ const NAV_LINKS = [
 ]
 
 export function SiteHeader() {
+  const reduce = useReducedMotion() === true
+
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex h-[62px] items-center justify-between px-4 sm:px-6 lg:px-8">
-      <a
+      <motion.a
         href="#hero"
         className="pointer-events-auto font-display text-[22px] font-bold tracking-[0.22em] text-white uppercase mix-blend-difference"
+        initial={reduce ? false : { opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduce ? 0 : 0.5, ease: EASE }}
       >
         may-i
-      </a>
+      </motion.a>
 
-      <nav className="pointer-events-auto flex items-center rounded-lg bg-[#1c1c1c] p-1 pl-3 shadow-[0_12px_40px_rgba(0,0,0,0.45)] sm:pl-4">
+      <motion.nav
+        className="pointer-events-auto flex items-center rounded-lg bg-[#1c1c1c] p-1 pl-3 shadow-[0_12px_40px_rgba(0,0,0,0.45)] sm:pl-4"
+        initial={reduce ? false : { opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduce ? 0 : 0.55, delay: reduce ? 0 : 0.08, ease: EASE }}
+      >
         <div className="hidden items-center gap-5 pr-4 md:flex">
           {NAV_LINKS.map((link) => (
             <a
@@ -35,7 +47,7 @@ export function SiteHeader() {
         <Cta href="#install" variant="nav" size="sm">
           Get started
         </Cta>
-      </nav>
+      </motion.nav>
     </header>
   )
 }

@@ -113,7 +113,6 @@ body {
 }
 
 .lime-cube {
-  transform: rotateX(-16deg) rotateY(22deg);
   transform-style: preserve-3d;
 }
 

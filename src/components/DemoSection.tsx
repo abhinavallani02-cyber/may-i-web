@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import * as AsciinemaPlayer from 'asciinema-player'
 import { Check, Copy } from 'lucide-react'
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from 'motion/react'
 import { CAST_URL, POLICY_YAML } from '../lib/site'
 import { Reveal } from './Reveal'
 
@@ -43,10 +50,37 @@ const CHIPS = [
   { tab: 'Policy' as const, label: 'yaml' },
 ]
 
+const TRAILS = [-22, 22, -8, 8]
+
 export function DemoSection() {
   const [tab, setTab] = useState<(typeof TABS)[number]>('Policy')
   const [copied, setCopied] = useState(false)
   const terminalRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const laptopRef = useRef<HTMLDivElement>(null)
+  const reduce = useReducedMotion() === true
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start 0.85', 'start 0.25'],
+  })
+  const trail = useSpring(useTransform(scrollYProgress, [0, 1], [0, 1]), {
+    stiffness: 90,
+    damping: 24,
+  })
+
+  const { scrollYProgress: laptopProgress } = useScroll({
+    target: laptopRef,
+    offset: ['start end', 'end start'],
+  })
+  const laptopRotateY = useSpring(useTransform(laptopProgress, [0, 1], [-10, 10]), {
+    stiffness: 60,
+    damping: 22,
+  })
+  const laptopRotateX = useSpring(useTransform(laptopProgress, [0, 1], [8, -6]), {
+    stiffness: 60,
+    damping: 22,
+  })
 
   useEffect(() => {
     if (!terminalRef.current) return
@@ -75,17 +109,23 @@ export function DemoSection() {
   const status = TAB_STATUS[tab]
 
   return (
-    <section id="policy" className="bg-void px-5 pt-4 pb-24 sm:px-8 lg:px-16">
+    <section id="policy" ref={sectionRef} className="bg-void px-5 pt-4 pb-24 sm:px-8 lg:px-16">
       <div className="relative mx-auto max-w-6xl">
-        <div
-          className="pointer-events-none mx-auto h-24 w-px bg-gradient-to-b from-acid to-transparent sm:h-32"
-          aria-hidden="true"
-        />
-        <div className="flex justify-center gap-10 sm:gap-20" aria-hidden="true">
-          <div className="h-24 w-px origin-top -rotate-[22deg] bg-gradient-to-b from-acid/85 to-transparent sm:h-36" />
-          <div className="h-24 w-px origin-top rotate-[22deg] bg-gradient-to-b from-acid/85 to-transparent sm:h-36" />
-          <div className="absolute left-1/2 h-24 w-px -translate-x-1/2 origin-top -rotate-[8deg] bg-gradient-to-b from-acid/70 to-transparent sm:h-36" />
-          <div className="absolute left-1/2 h-24 w-px -translate-x-1/2 origin-top rotate-[8deg] bg-gradient-to-b from-acid/70 to-transparent sm:h-36" />
+        <div className="relative h-24 sm:h-36" aria-hidden="true">
+          <motion.div
+            className="mx-auto h-full w-px origin-top bg-gradient-to-b from-acid to-transparent"
+            style={reduce ? { scaleY: 1 } : { scaleY: trail }}
+          />
+          {TRAILS.map((deg) => (
+            <motion.div
+              key={deg}
+              className="absolute top-0 left-1/2 h-full w-px origin-top bg-gradient-to-b from-acid/80 to-transparent"
+              style={{
+                rotate: deg,
+                ...(reduce ? { scaleY: 1 } : { scaleY: trail }),
+              }}
+            />
+          ))}
         </div>
 
         <Reveal y={28}>
@@ -132,8 +172,19 @@ export function DemoSection() {
             </div>
 
             <div className="grid lg:grid-cols-2">
-              <div className="relative min-h-[320px] border-b border-white/8 p-4 lg:border-r lg:border-b-0 lg:p-6">
-                <div className="flex h-full min-h-[280px] flex-col overflow-hidden rounded-[16px] bg-acid p-[3px] shadow-[0_0_50px_rgba(229,255,93,0.22)]">
+              <div
+                ref={laptopRef}
+                className="relative min-h-[320px] border-b border-white/8 p-4 lg:border-r lg:border-b-0 lg:p-6"
+                style={{ perspective: '1200px' }}
+              >
+                <motion.div
+                  className="flex h-full min-h-[280px] flex-col overflow-hidden rounded-[16px] bg-acid p-[3px] shadow-[0_0_50px_rgba(229,255,93,0.22)] will-change-transform"
+                  style={
+                    reduce
+                      ? undefined
+                      : { rotateY: laptopRotateY, rotateX: laptopRotateX, transformStyle: 'preserve-3d' }
+                  }
+                >
                   <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[13px] bg-[#070707]">
                     <div className="flex shrink-0 items-center gap-1.5 border-b border-white/8 px-3 py-2">
                       <span className="h-1.5 w-1.5 rounded-full bg-acid" />
@@ -147,7 +198,7 @@ export function DemoSection() {
                       <div ref={terminalRef} className="absolute top-0 left-0 w-[140%] origin-top-left" />
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
               <div className="relative">
                 <pre className="min-h-[280px] overflow-x-auto p-6 font-mono text-[13px] leading-relaxed text-white/80 sm:p-8">

@@ -1,5 +1,6 @@
+import { motion, useReducedMotion } from 'motion/react'
 import { LimeCube } from './LimeCube'
-import { Reveal } from './Reveal'
+import { Reveal, EASE } from './Reveal'
 
 const ORBITS = [
   { label: 'ALLOW', top: '6%', left: '50%', color: 'text-acid' },
@@ -39,6 +40,8 @@ export function IntroSection() {
 }
 
 function NetworkGraphic() {
+  const reduce = useReducedMotion() === true
+
   return (
     <div className="relative h-[420px] w-full max-w-[520px] sm:h-[480px]">
       <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
@@ -54,16 +57,20 @@ function NetworkGraphic() {
           />
         ))}
       </svg>
-      {ORBITS.map((orb) => (
-        <div
+      {ORBITS.map((orb, i) => (
+        <motion.div
           key={orb.label}
           className="absolute flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#1a1a1a] ring-1 ring-white/12"
           style={{ top: orb.top, left: orb.left }}
+          initial={reduce ? false : { opacity: 0, scale: 0.7 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : 0.05 * i, ease: EASE }}
         >
           <span className={`text-[8px] font-bold tracking-[0.12em] uppercase ${orb.color}`}>
             {orb.label}
           </span>
-        </div>
+        </motion.div>
       ))}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <LimeCube size={168} scrollTargetId="how-it-works" />

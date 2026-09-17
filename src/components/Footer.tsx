@@ -2,6 +2,7 @@ import { GITHUB_URL, NPM_URL } from '../lib/site'
 import { Cta } from './Cta'
 import { CopyCommand } from './CopyCommand'
 import { LimeCube } from './LimeCube'
+import { Reveal } from './Reveal'
 
 const COLUMNS = [
   {
@@ -26,62 +27,71 @@ const COLUMNS = [
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-void px-5 pt-24 pb-10 text-white sm:px-8 lg:px-16">
-      <div className="pointer-events-none absolute top-[-20%] right-[-8%] opacity-30" aria-hidden="true">
-        <LimeCube size={420} spin />
+      <div
+        className="pointer-events-none absolute top-[-20%] right-[-8%] opacity-30"
+        aria-hidden="true"
+      >
+        <LimeCube size={420} drift />
       </div>
 
       <div className="relative mx-auto max-w-6xl">
-        <h2 className="font-display max-w-4xl text-[42px] leading-[0.9] font-bold tracking-[-0.045em] uppercase sm:text-[60px] lg:text-[73px]">
-          Get started
-          <br />
-          with may-i
-        </h2>
-        <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-white/55">
-          Drop it on the path between your agent and a tool. MIT. Local-only. Fail-closed.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center gap-3">
+        <Reveal y={48}>
+          <h2 className="font-display max-w-4xl text-[42px] leading-[0.9] font-bold tracking-[-0.045em] uppercase sm:text-[60px] lg:text-[73px]">
+            Get started
+            <br />
+            with may-i
+          </h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-white/55">
+            Drop it on the path between your agent and a tool. MIT. Local-only. Fail-closed.
+          </p>
+        </Reveal>
+        <Reveal delay={0.14} className="mt-8 flex flex-wrap items-center gap-3">
           <Cta href="#install" mark>
             Get started
           </Cta>
           <Cta href={GITHUB_URL} variant="ghost">
             GitHub
           </Cta>
-        </div>
-        <div className="mt-8 max-w-2xl">
+        </Reveal>
+        <Reveal delay={0.2} className="mt-8 max-w-2xl">
           <CopyCommand />
-        </div>
+        </Reveal>
 
-        <div className="mt-20 rounded-[20px] bg-[#0c0c0c] px-8 py-10 sm:px-10">
-          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
-            <div>
-              <p className="font-display text-[22px] font-bold tracking-[0.18em] uppercase">may-i</p>
-              <p className="mt-3 max-w-sm text-[14px] leading-relaxed text-muted">
-                A permission layer for AI agents. In active development — built by Abhinav Allani.
-              </p>
-            </div>
-            {COLUMNS.map((col) => (
-              <div key={col.title}>
-                <p className="text-[11px] font-bold tracking-[0.16em] text-white/35 uppercase">
-                  {col.title}
+        <Reveal delay={0.1} y={24}>
+          <div className="mt-20 rounded-[20px] bg-[#0c0c0c] px-8 py-10 sm:px-10">
+            <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+              <div>
+                <p className="font-display text-[22px] font-bold tracking-[0.18em] uppercase">may-i</p>
+                <p className="mt-3 max-w-sm text-[14px] leading-relaxed text-muted">
+                  A permission layer for AI agents. In active development — built by Abhinav Allani.
                 </p>
-                <ul className="mt-4 flex flex-col gap-2.5">
-                  {col.links.map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        target={link.href.startsWith('http') ? '_blank' : undefined}
-                        rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                        className="text-[13px] text-white/70 transition-colors hover:text-acid"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
               </div>
-            ))}
+              {COLUMNS.map((col) => (
+                <div key={col.title}>
+                  <p className="text-[11px] font-bold tracking-[0.16em] text-white/35 uppercase">
+                    {col.title}
+                  </p>
+                  <ul className="mt-4 flex flex-col gap-2.5">
+                    {col.links.map((link) => (
+                      <li key={link.label}>
+                        <a
+                          href={link.href}
+                          target={link.href.startsWith('http') ? '_blank' : undefined}
+                          rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                          className="text-white/70 text-[13px] transition-colors hover:text-acid"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </footer>
   )

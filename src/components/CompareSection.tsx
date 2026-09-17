@@ -1,4 +1,5 @@
-import { Reveal } from './Reveal'
+import { motion, useReducedMotion } from 'motion/react'
+import { Reveal, Stagger, StaggerItem, EASE } from './Reveal'
 import { Cta } from './Cta'
 import { GITHUB_URL } from '../lib/site'
 
@@ -30,13 +31,16 @@ const TONE = {
 }
 
 export function CompareSection() {
+  const reduce = useReducedMotion() === true
+
   return (
     <section id="compare" className="bg-void px-5 py-24 sm:px-8 lg:px-16">
-      <div className="mx-auto grid max-w-6xl gap-4 md:grid-cols-3">
-        {CARDS.map((card, i) => (
-          <Reveal key={card.name} delay={0.06 * i}>
-            <div
+      <Stagger className="mx-auto grid max-w-6xl gap-4 md:grid-cols-3" delay={0.12} delayChildren={0.06}>
+        {CARDS.map((card) => (
+          <StaggerItem key={card.name}>
+            <motion.div
               className={`flex min-h-[420px] flex-col justify-between rounded-[20px] p-8 sm:min-h-[507px] ${TONE[card.tone]}`}
+              whileHover={reduce ? undefined : { y: -8, transition: { duration: 0.35, ease: EASE } }}
             >
               <CardMark kind={card.mark} />
               <div>
@@ -45,18 +49,18 @@ export function CompareSection() {
                 </h3>
                 <p className="mt-4 text-[15px] leading-relaxed text-black/60">{card.body}</p>
               </div>
-            </div>
-          </Reveal>
+            </motion.div>
+          </StaggerItem>
         ))}
-      </div>
-      <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+      </Stagger>
+      <Reveal delay={0.16} className="mt-10 flex flex-wrap items-center justify-center gap-3">
         <Cta href="#install" mark>
           Get started
         </Cta>
         <Cta href={GITHUB_URL} variant="ghost">
           Read the docs
         </Cta>
-      </div>
+      </Reveal>
     </section>
   )
 }

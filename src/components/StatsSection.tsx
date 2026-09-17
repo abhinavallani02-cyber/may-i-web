@@ -1,5 +1,6 @@
 import { GITHUB_URL } from '../lib/site'
-import { Reveal } from './Reveal'
+import { motion, useReducedMotion } from 'motion/react'
+import { Reveal, Stagger, StaggerItem, EASE } from './Reveal'
 import { Cta } from './Cta'
 
 const TILES = [
@@ -30,32 +31,41 @@ const STATS = [
 ]
 
 export function StatsSection() {
+  const reduce = useReducedMotion() === true
+
   return (
     <section id="trust" className="bg-fog px-5 py-24 text-ink sm:px-8 md:py-32 lg:px-16">
       <div className="mx-auto grid max-w-6xl items-start gap-14 lg:grid-cols-2 lg:gap-20">
         <div className="lg:sticky lg:top-24">
           <Reveal>
             <div className="mx-auto max-w-[420px] overflow-hidden rounded-[20px] bg-white p-3">
-              <div className="grid grid-cols-8 gap-1.5">
+              <Stagger className="grid grid-cols-8 gap-1.5" delay={0.012} delayChildren={0}>
                 {TILES.map((color, i) => (
-                  <span
-                    key={i}
-                    className="aspect-square rounded-[6px] ring-1 ring-black/5"
-                    style={{ background: color }}
-                  />
+                  <StaggerItem key={i}>
+                    <span
+                      className="block aspect-square rounded-[6px] ring-1 ring-black/5"
+                      style={{ background: color }}
+                    />
+                  </StaggerItem>
                 ))}
-              </div>
+              </Stagger>
             </div>
           </Reveal>
         </div>
 
         <div className="flex flex-col gap-16 pt-4">
           {STATS.map((item, i) => (
-            <Reveal key={item.label} delay={0.06 * i}>
+            <Reveal key={item.label} delay={0.04 * i} y={48}>
               <div className="flex items-baseline justify-between gap-6">
-                <p className="font-display text-[clamp(40px,6vw,80px)] leading-none font-bold tracking-[-0.06em] text-ink uppercase">
+                <motion.p
+                  className="font-display text-[clamp(40px,6vw,80px)] leading-none font-bold tracking-[-0.06em] text-ink uppercase"
+                  initial={reduce ? false : { opacity: 0.35, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.7 }}
+                  transition={{ duration: reduce ? 0 : 0.7, ease: EASE }}
+                >
                   {item.value}
-                </p>
+                </motion.p>
                 <p className="text-[18px] font-semibold tracking-[0.12em] text-black/55 uppercase sm:text-[22px]">
                   {item.label}
                 </p>
@@ -65,9 +75,11 @@ export function StatsSection() {
               </p>
             </Reveal>
           ))}
-          <Cta href={GITHUB_URL} mark className="self-start">
-            Read the code
-          </Cta>
+          <Reveal>
+            <Cta href={GITHUB_URL} mark className="self-start">
+              Read the code
+            </Cta>
+          </Reveal>
         </div>
       </div>
     </section>

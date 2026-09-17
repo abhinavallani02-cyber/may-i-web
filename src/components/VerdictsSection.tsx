@@ -1,4 +1,4 @@
-import { Reveal } from './Reveal'
+import { Reveal, Stagger, StaggerItem } from './Reveal'
 import { LimeCube } from './LimeCube'
 import { Cta } from './Cta'
 import { GITHUB_URL } from '../lib/site'
@@ -33,8 +33,11 @@ const CARDS = [
 export function VerdictsSection() {
   return (
     <section id="verdicts" className="relative overflow-hidden bg-fog px-5 py-28 text-ink sm:px-8 lg:px-16">
-      <div className="pointer-events-none absolute right-[-4%] bottom-[-8%] hidden opacity-90 lg:block" aria-hidden="true">
-        <LimeCube size={320} spin />
+      <div
+        className="pointer-events-none absolute right-[-4%] bottom-[-8%] hidden opacity-90 lg:block"
+        aria-hidden="true"
+      >
+        <LimeCube size={320} drift />
       </div>
 
       <Reveal>
@@ -48,25 +51,28 @@ export function VerdictsSection() {
         </p>
       </Reveal>
 
-      <div className="relative mx-auto mt-14 grid max-w-6xl gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {CARDS.map((item, i) => (
-          <Reveal key={item.name} delay={0.04 * i}>
+      <Stagger
+        className="relative mx-auto mt-14 grid max-w-6xl gap-3 sm:grid-cols-2 lg:grid-cols-3"
+        delay={0.07}
+      >
+        {CARDS.map((item) => (
+          <StaggerItem key={item.name}>
             <div className="h-full rounded-[12px] bg-white p-7">
               <h3 className="text-[22px] leading-tight font-semibold tracking-tight">{item.name}</h3>
               <p className="mt-3 text-[15px] leading-relaxed text-black/55">{item.body}</p>
             </div>
-          </Reveal>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
 
-      <div className="relative mt-12 flex flex-wrap items-center justify-center gap-3">
+      <Reveal delay={0.12} className="relative mt-12 flex flex-wrap items-center justify-center gap-3">
         <Cta href="#install" mark>
           Get started
         </Cta>
         <Cta href={GITHUB_URL} variant="ghost">
           GitHub
         </Cta>
-      </div>
+      </Reveal>
     </section>
   )
 }

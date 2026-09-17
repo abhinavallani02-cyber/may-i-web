@@ -34,15 +34,21 @@ export function FaqSection() {
 
   return (
     <section id="faq" className="relative overflow-hidden bg-fog px-5 py-28 text-ink sm:px-8 lg:px-16">
-      <div className="pointer-events-none absolute top-[12%] right-[8%] hidden opacity-80 lg:block" aria-hidden="true">
-        <LimeCube size={180} spin />
+      <div
+        className="pointer-events-none absolute top-[12%] right-[8%] hidden opacity-80 lg:block"
+        aria-hidden="true"
+      >
+        <LimeCube size={180} drift />
       </div>
-      <div className="pointer-events-none absolute right-[18%] bottom-[-10%] hidden opacity-70 lg:block" aria-hidden="true">
-        <LimeCube size={140} />
+      <div
+        className="pointer-events-none absolute right-[18%] bottom-[-10%] hidden opacity-70 lg:block"
+        aria-hidden="true"
+      >
+        <LimeCube size={140} drift />
       </div>
 
       <div className="relative mx-auto grid max-w-6xl items-start gap-12 lg:grid-cols-[0.42fr_0.58fr]">
-        <Reveal>
+        <Reveal className="lg:sticky lg:top-32">
           <h2 className="font-display text-[40px] leading-[0.9] font-bold tracking-[-0.045em] uppercase sm:text-[56px] lg:text-[64px]">
             may-i is early,
             <br />
