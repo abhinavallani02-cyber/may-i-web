@@ -39,8 +39,8 @@ export function HeroSection() {
 
       <div className="relative mx-auto flex min-h-[100svh] max-w-5xl flex-col items-center justify-center px-5 pt-24 pb-10 sm:px-8">
         <div className="relative w-full">
-          <div className="pointer-events-none absolute top-0 left-1/2 z-0 -translate-x-1/2 -translate-y-[62%]">
-            <LimeCube size={132} scrollTargetId="hero" />
+          <div className="pointer-events-none absolute top-0 left-1/2 z-0 -translate-x-1/2 -translate-y-[48%]">
+            <LimeCube size={118} scrollTargetId="hero" />
           </div>
           <h1 className="font-display relative z-10 text-center text-[42px] leading-[0.92] font-bold tracking-[-0.045em] text-white uppercase sm:text-[60px] lg:text-[73px]">
             Ask before

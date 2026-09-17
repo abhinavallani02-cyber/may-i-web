@@ -52,9 +52,7 @@ export function VerdictsSection() {
         {CARDS.map((item, i) => (
           <Reveal key={item.name} delay={0.04 * i}>
             <div className="h-full rounded-[12px] bg-white p-7">
-              <h3 className="font-display text-[24px] leading-[0.95] font-bold tracking-tight">
-                {item.name}
-              </h3>
+              <h3 className="text-[22px] leading-tight font-semibold tracking-tight">{item.name}</h3>
               <p className="mt-3 text-[15px] leading-relaxed text-black/55">{item.body}</p>
             </div>
           </Reveal>

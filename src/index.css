@@ -113,35 +113,8 @@ body {
 }
 
 .lime-cube {
-  position: relative;
-  transform-style: preserve-3d;
   transform: rotateX(-16deg) rotateY(22deg);
-}
-
-.lime-cube-face {
-  position: absolute;
-  inset: 0;
-  border-radius: 22%;
-  backface-visibility: hidden;
-}
-
-.lime-cube-face.front {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(145deg, #f4ff8a 0%, #e5ff5d 45%, #cce64a 100%);
-  box-shadow:
-    inset 10px 10px 24px rgba(255, 255, 255, 0.28),
-    inset -14px -16px 28px rgba(0, 0, 0, 0.12),
-    0 30px 60px rgba(0, 0, 0, 0.28);
-}
-
-.lime-cube-face.top {
-  background: linear-gradient(180deg, #f8ffb0 0%, #e5ff5d 100%);
-}
-
-.lime-cube-face.right {
-  background: linear-gradient(180deg, #d4ee4a 0%, #b5d12e 100%);
+  transform-style: preserve-3d;
 }
 
 @media (prefers-reduced-motion: reduce) {

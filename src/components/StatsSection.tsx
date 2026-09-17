@@ -65,7 +65,7 @@ export function StatsSection() {
               </p>
             </Reveal>
           ))}
-          <Cta href={GITHUB_URL} mark>
+          <Cta href={GITHUB_URL} mark className="self-start">
             Read the code
           </Cta>
         </div>

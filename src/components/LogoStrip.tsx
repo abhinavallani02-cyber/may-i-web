@@ -8,11 +8,14 @@ const ROWS = [
 
 export function LogoStrip() {
   return (
-    <section className="relative overflow-hidden bg-void pb-8 pt-2">
-      <div className="relative mx-auto max-w-5xl px-6">
-        <div className="flex flex-col gap-7 py-10">
+    <section className="relative overflow-hidden bg-void pb-16 pt-4">
+      <div className="relative mx-auto max-w-5xl px-6 py-8">
+        <div className="flex flex-col gap-8">
           {ROWS.map((row) => (
-            <div key={row.join()} className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 sm:gap-x-14">
+            <div
+              key={row.join()}
+              className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 sm:gap-x-14"
+            >
               {row.map((item) => (
                 <span
                   key={item}
@@ -24,8 +27,8 @@ export function LogoStrip() {
             </div>
           ))}
         </div>
-        <div className="pointer-events-none absolute right-[12%] bottom-[-40%] hidden lg:block">
-          <LimeCube size={220} spin />
+        <div className="pointer-events-none absolute right-[8%] -bottom-10 hidden lg:block">
+          <LimeCube size={200} />
         </div>
       </div>
     </section>
