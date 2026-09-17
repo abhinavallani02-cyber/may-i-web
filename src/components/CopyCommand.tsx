@@ -32,7 +32,7 @@ export function CopyCommand({
   return (
     <div
       id={id}
-      className="flex w-full min-w-0 items-center gap-2 rounded-xl bg-[#121212] p-1.5 pl-4 ring-1 ring-white/10 sm:pl-5"
+      className="flex w-full min-w-0 items-center gap-2 rounded-lg bg-[#0c0c0c] p-1.5 pl-4 ring-1 ring-white/10 sm:pl-5"
     >
       <code className="min-w-0 flex-1 overflow-x-auto overflow-y-hidden whitespace-nowrap font-mono text-[11px] leading-none tracking-tight text-white/75 sm:text-[13px]">
         {command}
@@ -40,7 +40,7 @@ export function CopyCommand({
       <button
         type="button"
         onClick={() => void copy()}
-        className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-acid px-3.5 py-2 text-[11px] font-bold tracking-[0.14em] text-black uppercase transition-colors hover:bg-[#e1ff4a] sm:px-4"
+        className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg bg-acid px-3.5 text-[11px] font-bold tracking-[0.14em] text-black uppercase transition-colors hover:bg-[#edff7a] sm:px-4"
         aria-label="Copy install command"
       >
         {copied ? <Check size={14} strokeWidth={2.4} /> : <Copy size={14} strokeWidth={2.2} />}

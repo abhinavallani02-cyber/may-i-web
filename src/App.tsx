@@ -1,12 +1,12 @@
 import { SiteHeader } from './components/SiteHeader'
 import { HeroSection } from './components/HeroSection'
-import { MarqueeSection } from './components/MarqueeSection'
+import { LogoStrip } from './components/LogoStrip'
 import { IntroSection } from './components/IntroSection'
-import { DeviceSection } from './components/DeviceSection'
+import { SolutionSection } from './components/SolutionSection'
+import { DemoSection } from './components/DemoSection'
 import { CompareSection } from './components/CompareSection'
 import { VerdictsSection } from './components/VerdictsSection'
 import { StatsSection } from './components/StatsSection'
-import { LimitsSection } from './components/LimitsSection'
 import { FaqSection } from './components/FaqSection'
 import { Footer } from './components/Footer'
 
@@ -16,13 +16,13 @@ function App() {
       <SiteHeader />
       <main>
         <HeroSection />
-        <MarqueeSection />
+        <LogoStrip />
         <IntroSection />
-        <DeviceSection />
+        <SolutionSection />
+        <DemoSection />
         <CompareSection />
         <VerdictsSection />
         <StatsSection />
-        <LimitsSection />
         <FaqSection />
       </main>
       <Footer />

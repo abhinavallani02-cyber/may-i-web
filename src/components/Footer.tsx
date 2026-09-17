@@ -1,6 +1,7 @@
-import { Hexagon } from 'lucide-react'
 import { GITHUB_URL, NPM_URL } from '../lib/site'
-import { Pill } from './Pill'
+import { Cta } from './Cta'
+import { CopyCommand } from './CopyCommand'
+import { LimeCube } from './LimeCube'
 
 const COLUMNS = [
   {
@@ -15,7 +16,6 @@ const COLUMNS = [
   {
     title: 'Resources',
     links: [
-      { label: 'Limits', href: '#limits' },
       { label: 'FAQ', href: '#faq' },
       { label: 'GitHub', href: GITHUB_URL },
       { label: 'npm', href: NPM_URL },
@@ -25,50 +25,61 @@ const COLUMNS = [
 
 export function Footer() {
   return (
-    <footer className="bg-void px-5 py-16 text-white sm:px-8 lg:px-16">
-      <div className="mx-auto max-w-6xl border-t border-white/10 pt-14">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_auto]">
-          <div>
-            <p className="font-display text-[28px] font-extrabold tracking-[0.16em] uppercase">
-              may-i
-            </p>
-            <p className="mt-3 max-w-sm text-[14px] leading-relaxed text-muted">
-              A permission layer for AI agents. MIT. Local-only. Fail-closed.
-            </p>
-          </div>
+    <footer className="relative overflow-hidden bg-void px-5 pt-24 pb-10 text-white sm:px-8 lg:px-16">
+      <div className="pointer-events-none absolute top-[-20%] right-[-8%] opacity-30" aria-hidden="true">
+        <LimeCube size={420} spin />
+      </div>
 
-          {COLUMNS.map((col) => (
-            <div key={col.title}>
-              <p className="text-[11px] font-bold tracking-[0.16em] text-white/35 uppercase">
-                {col.title}
+      <div className="relative mx-auto max-w-6xl">
+        <h2 className="font-display max-w-4xl text-[42px] leading-[0.9] font-bold tracking-[-0.045em] uppercase sm:text-[60px] lg:text-[73px]">
+          Get started
+          <br />
+          with may-i
+        </h2>
+        <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-white/55">
+          Drop it on the path between your agent and a tool. MIT. Local-only. Fail-closed.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <Cta href="#install" mark>
+            Get started
+          </Cta>
+          <Cta href={GITHUB_URL} variant="ghost">
+            GitHub
+          </Cta>
+        </div>
+        <div className="mt-8 max-w-2xl">
+          <CopyCommand />
+        </div>
+
+        <div className="mt-20 rounded-[20px] bg-[#0c0c0c] px-8 py-10 sm:px-10">
+          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+            <div>
+              <p className="font-display text-[22px] font-bold tracking-[0.18em] uppercase">may-i</p>
+              <p className="mt-3 max-w-sm text-[14px] leading-relaxed text-muted">
+                A permission layer for AI agents. In active development — built by Abhinav Allani.
               </p>
-              <ul className="mt-4 flex flex-col gap-2.5">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      target={link.href.startsWith('http') ? '_blank' : undefined}
-                      rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                      className="text-[13px] text-white/70 transition-colors hover:text-acid"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
             </div>
-          ))}
-
-          <div className="flex flex-col items-start gap-4 md:items-end">
-            <Pill href="#install">
-              <Hexagon size={13} strokeWidth={2.4} />
-              Get started
-            </Pill>
-            <p className="text-[11px] tracking-[0.14em] text-white/30 uppercase md:text-right">
-              In active development
-              <br />
-              Built by Abhinav Allani
-            </p>
+            {COLUMNS.map((col) => (
+              <div key={col.title}>
+                <p className="text-[11px] font-bold tracking-[0.16em] text-white/35 uppercase">
+                  {col.title}
+                </p>
+                <ul className="mt-4 flex flex-col gap-2.5">
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        target={link.href.startsWith('http') ? '_blank' : undefined}
+                        rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                        className="text-[13px] text-white/70 transition-colors hover:text-acid"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </div>

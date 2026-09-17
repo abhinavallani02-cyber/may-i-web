@@ -1,21 +1,23 @@
 import { Reveal } from './Reveal'
+import { Cta } from './Cta'
+import { GITHUB_URL } from '../lib/site'
 
 const CARDS = [
   {
     name: 'Built-in is a prompt',
-    href: '#faq',
+    body: 'A system prompt is not a control plane. The agent can still call the tool.',
     tone: 'sand' as const,
     mark: 'circles' as const,
   },
   {
     name: 'A file you write once',
-    href: '#install',
+    body: 'YAML you can diff and commit. First match wins. Last rule should ask.',
     tone: 'acid' as const,
     mark: 'tiles' as const,
   },
   {
     name: 'Fail closed by default',
-    href: '#how-it-works',
+    body: 'Silence times out to deny. If the proxy dies, the tool connection dies with it.',
     tone: 'paper' as const,
     mark: 'sheets' as const,
   },
@@ -33,17 +35,27 @@ export function CompareSection() {
       <div className="mx-auto grid max-w-6xl gap-4 md:grid-cols-3">
         {CARDS.map((card, i) => (
           <Reveal key={card.name} delay={0.06 * i}>
-            <a
-              href={card.href}
-              className={`flex min-h-[420px] flex-col justify-between rounded-[22px] p-8 motion-safe:transition-transform motion-safe:duration-300 motion-safe:hover:-translate-y-1 ${TONE[card.tone]}`}
+            <div
+              className={`flex min-h-[420px] flex-col justify-between rounded-[20px] p-8 sm:min-h-[507px] ${TONE[card.tone]}`}
             >
               <CardMark kind={card.mark} />
-              <h3 className="font-display text-[32px] leading-[0.95] font-extrabold tracking-[-0.03em] uppercase sm:text-[36px]">
-                {card.name}
-              </h3>
-            </a>
+              <div>
+                <h3 className="font-display text-[28px] leading-[0.95] font-bold tracking-[-0.03em] uppercase sm:text-[31px]">
+                  {card.name}
+                </h3>
+                <p className="mt-4 text-[15px] leading-relaxed text-black/60">{card.body}</p>
+              </div>
+            </div>
           </Reveal>
         ))}
+      </div>
+      <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <Cta href="#install" mark>
+          Get started
+        </Cta>
+        <Cta href={GITHUB_URL} variant="ghost">
+          Read the docs
+        </Cta>
       </div>
     </section>
   )

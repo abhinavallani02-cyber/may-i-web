@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Syne:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Syne:wght@600;700&display=swap');
 @import 'tailwindcss';
 @import 'asciinema-player/dist/bundle/asciinema-player.css';
 
@@ -7,15 +7,15 @@
   --font-display: 'Syne', ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
 
-  --color-void: #000000;
-  --color-ink: #0a0a0a;
-  --color-fog: #e6e6e6;
-  --color-muted: #9c9c9c;
+  --color-void: #111111;
+  --color-ink: #111111;
+  --color-fog: #eeeeee;
+  --color-muted: #9a9a9a;
   --color-line: #2a2a2a;
-  --color-acid: #ccff00;
+  --color-acid: #e5ff5d;
   --color-cyan: #2f6bff;
   --color-magenta: #ff2d8a;
-  --color-sand: #c9c4b8;
+  --color-sand: #cfc8bb;
 }
 
 * {
@@ -26,12 +26,12 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: #000;
+  background: #111;
   color: #f3f3f3;
 }
 
 html {
-  scroll-padding-top: 1.5rem;
+  scroll-padding-top: 72px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -48,8 +48,8 @@ body {
 }
 
 ::selection {
-  background: #ccff00;
-  color: #000;
+  background: #e5ff5d;
+  color: #111;
 }
 
 .hero-terminal .ap-wrapper {
@@ -62,7 +62,7 @@ body {
 }
 
 .hero-terminal .ap-player {
-  background: #050505;
+  background: #0a0a0a;
   border-radius: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
@@ -87,21 +87,12 @@ body {
   }
 }
 
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @keyframes spin-y {
   from {
-    transform: rotateY(0deg) rotateX(-12deg);
+    transform: rotateX(-16deg) rotateY(-20deg);
   }
   to {
-    transform: rotateY(360deg) rotateX(-12deg);
+    transform: rotateX(-16deg) rotateY(340deg);
   }
 }
 
@@ -113,24 +104,55 @@ body {
   animation: drift-b 10s ease-in-out infinite;
 }
 
-.marquee-track {
-  animation: marquee 32s linear infinite;
-}
-
-.spin-y {
+.cube-spin {
   animation: spin-y 18s linear infinite;
 }
 
+.lime-cube-scene {
+  perspective: 1100px;
+}
+
+.lime-cube {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(-16deg) rotateY(22deg);
+}
+
+.lime-cube-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 22%;
+  backface-visibility: hidden;
+}
+
+.lime-cube-face.front {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #f4ff8a 0%, #e5ff5d 45%, #cce64a 100%);
+  box-shadow:
+    inset 10px 10px 24px rgba(255, 255, 255, 0.28),
+    inset -14px -16px 28px rgba(0, 0, 0, 0.12),
+    0 30px 60px rgba(0, 0, 0, 0.28);
+}
+
+.lime-cube-face.top {
+  background: linear-gradient(180deg, #f8ffb0 0%, #e5ff5d 100%);
+}
+
+.lime-cube-face.right {
+  background: linear-gradient(180deg, #d4ee4a 0%, #b5d12e 100%);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-laptop-frame,
-  .lime-mark-frame {
+  .lime-cube,
+  .hero-laptop-frame {
     transform: none !important;
   }
 
   .drift-a,
   .drift-b,
-  .marquee-track,
-  .spin-y {
+  .cube-spin {
     animation: none;
   }
 }
