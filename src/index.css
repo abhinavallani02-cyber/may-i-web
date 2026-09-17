@@ -4,17 +4,18 @@
 
 @theme {
   --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Syne', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Syne', ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
 
-  --color-void: #0a0a0a;
+  --color-void: #000000;
   --color-ink: #0a0a0a;
-  --color-fog: #e8e8e8;
-  --color-muted: #8a8a8a;
+  --color-fog: #e6e6e6;
+  --color-muted: #9c9c9c;
   --color-line: #2a2a2a;
-  --color-acid: #d2ff00;
-  --color-cyan: #3ad0ff;
-  --color-magenta: #ff3dce;
+  --color-acid: #ccff00;
+  --color-cyan: #2f6bff;
+  --color-magenta: #ff2d8a;
+  --color-sand: #c9c4b8;
 }
 
 * {
@@ -25,12 +26,12 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: #0a0a0a;
-  color: #f2f2f2;
+  background: #000;
+  color: #f3f3f3;
 }
 
 html {
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 1.5rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -47,8 +48,8 @@ body {
 }
 
 ::selection {
-  background: #d2ff00;
-  color: #0a0a0a;
+  background: #ccff00;
+  color: #000;
 }
 
 .hero-terminal .ap-wrapper {
@@ -61,7 +62,7 @@ body {
 }
 
 .hero-terminal .ap-player {
-  background: #0a0a0a;
+  background: #050505;
   border-radius: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
@@ -69,52 +70,67 @@ body {
 @keyframes drift-a {
   0%,
   100% {
-    transform: translate(0, 0);
+    transform: translate(-50%, -50%) translate(0, 0);
   }
   50% {
-    transform: translate(18px, -22px);
+    transform: translate(-50%, -50%) translate(14px, -18px);
   }
 }
 
 @keyframes drift-b {
   0%,
   100% {
-    transform: translate(0, 0);
+    transform: translate(-50%, -50%) translate(0, 0);
   }
   50% {
-    transform: translate(-16px, 14px);
+    transform: translate(-50%, -50%) translate(-16px, 12px);
   }
 }
 
-@keyframes spin-slow {
+@keyframes marquee {
   from {
-    transform: rotate(0deg);
+    transform: translateX(0);
   }
   to {
-    transform: rotate(360deg);
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes spin-y {
+  from {
+    transform: rotateY(0deg) rotateX(-12deg);
+  }
+  to {
+    transform: rotateY(360deg) rotateX(-12deg);
   }
 }
 
 .drift-a {
-  animation: drift-a 9s ease-in-out infinite;
+  animation: drift-a 8s ease-in-out infinite;
 }
 
 .drift-b {
-  animation: drift-b 11s ease-in-out infinite;
+  animation: drift-b 10s ease-in-out infinite;
 }
 
-.spin-slow {
-  animation: spin-slow 28s linear infinite;
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+
+.spin-y {
+  animation: spin-y 18s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-laptop-frame {
+  .hero-laptop-frame,
+  .lime-mark-frame {
     transform: none !important;
   }
 
   .drift-a,
   .drift-b,
-  .spin-slow {
+  .marquee-track,
+  .spin-y {
     animation: none;
   }
 }

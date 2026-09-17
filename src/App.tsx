@@ -1,9 +1,10 @@
 import { SiteHeader } from './components/SiteHeader'
 import { HeroSection } from './components/HeroSection'
-import { VerdictsSection } from './components/VerdictsSection'
-import { PolicySection } from './components/PolicySection'
+import { MarqueeSection } from './components/MarqueeSection'
+import { IntroSection } from './components/IntroSection'
+import { DeviceSection } from './components/DeviceSection'
 import { CompareSection } from './components/CompareSection'
-import { TrustSection } from './components/TrustSection'
+import { StatsSection } from './components/StatsSection'
 import { LimitsSection } from './components/LimitsSection'
 import { FaqSection } from './components/FaqSection'
 import { Footer } from './components/Footer'
@@ -14,10 +15,11 @@ function App() {
       <SiteHeader />
       <main>
         <HeroSection />
-        <VerdictsSection />
-        <PolicySection />
+        <MarqueeSection />
+        <IntroSection />
+        <DeviceSection />
         <CompareSection />
-        <TrustSection />
+        <StatsSection />
         <LimitsSection />
         <FaqSection />
       </main>

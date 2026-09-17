@@ -2,11 +2,11 @@ import type { ReactNode } from 'react'
 
 const variants = {
   acid:
-    'bg-acid text-black hover:bg-[#e1ff4a] uppercase tracking-[0.16em] text-[11px] font-bold rounded-md',
+    'bg-acid text-black hover:bg-[#d8ff33] rounded-md uppercase tracking-[0.14em] text-[11px] font-bold',
   ghost:
-    'bg-[#161616] text-white ring-1 ring-white/12 hover:bg-[#1e1e1e] uppercase tracking-[0.16em] text-[11px] font-bold rounded-md',
+    'bg-[#1a1a1a] text-white ring-1 ring-white/10 hover:bg-[#222] rounded-md uppercase tracking-[0.14em] text-[11px] font-bold',
   outline:
-    'bg-transparent text-ink ring-1 ring-black/15 hover:bg-black/[0.04] uppercase tracking-[0.16em] text-[11px] font-bold rounded-md',
+    'bg-transparent text-ink ring-1 ring-black/15 hover:bg-black/[0.04] rounded-md uppercase tracking-[0.14em] text-[11px] font-bold',
 } as const
 
 export function Pill({
@@ -27,7 +27,7 @@ export function Pill({
       href={href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer' : undefined}
-      className={`inline-flex items-center justify-center gap-2 px-4 py-2.5 transition-colors duration-200 ${variants[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 px-3.5 py-2 transition-colors duration-200 ${variants[variant]} ${className}`}
     >
       {children}
     </a>

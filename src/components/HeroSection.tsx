@@ -1,65 +1,78 @@
-import { Hexagon } from 'lucide-react'
-import { GITHUB_URL } from '../lib/site'
+import { Hexagon, Shield, Lock } from 'lucide-react'
 import { CopyCommand } from './CopyCommand'
-import { DriftOrbs } from './DriftOrbs'
 import { HeroLaptop } from './HeroLaptop'
-import { Pill } from './Pill'
 
-const CHIPS = ['MIT', 'local-only', 'fail-closed']
+const ORBS: { label?: string; className: string; fill?: string }[] = [
+  { label: 'MIT', className: 'top-[18%] left-[8%] drift-a' },
+  { className: 'top-[24%] left-[20%] drift-b', fill: 'bg-cyan' },
+  { label: 'ASK', className: 'top-[46%] left-[6%] drift-a' },
+  { className: 'top-[30%] right-[14%] drift-b', fill: 'bg-acid' },
+  { className: 'top-[52%] right-[7%] drift-a', fill: 'bg-cyan' },
+  { label: 'YAML', className: 'bottom-[20%] left-[12%] drift-b' },
+]
+
+const CHIPS = [
+  { icon: Shield, label: 'MIT' },
+  { icon: Lock, label: 'local-only' },
+  { icon: Hexagon, label: 'fail-closed' },
+]
 
 export function HeroSection() {
   return (
-    <section id="hero" className="relative overflow-hidden bg-void">
-      <DriftOrbs />
-
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-8 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-2 lg:gap-10 lg:px-12 lg:py-16">
-        <div className="order-1 min-w-0 text-center lg:text-left">
-          <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
-            {CHIPS.map((chip) => (
-              <span
-                key={chip}
-                className="rounded-full bg-white/6 px-3 py-1 text-[10px] font-bold tracking-[0.18em] text-white/70 uppercase ring-1 ring-white/12"
-              >
-                {chip}
-              </span>
-            ))}
-          </div>
-
-          <h1 className="font-display mt-7 text-[42px] leading-[0.86] font-extrabold tracking-[-0.04em] text-white uppercase sm:text-6xl lg:text-[80px]">
-            Ask before
-            <br />
-            it acts
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-xl text-[16px] leading-relaxed text-muted lg:mx-0 sm:text-[17px]">
-            A permission layer for AI agents. Every tool call is checked against a YAML policy —
-            allowed, blocked, or paused for your approval.
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-            <Pill href="#how-it-works">
-              <Hexagon size={14} strokeWidth={2.4} />
-              Get started
-            </Pill>
-            <Pill href={GITHUB_URL} variant="ghost">
-              Documentation
-            </Pill>
-          </div>
+    <section id="hero" className="relative min-h-[100svh] overflow-hidden bg-void">
+      {ORBS.map((orb, i) => (
+        <div
+          key={i}
+          className={`pointer-events-none absolute hidden h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full md:flex ${orb.className} ${
+            orb.fill ? `${orb.fill} h-11 w-11 rounded-[10px]` : 'bg-[#141414] ring-1 ring-white/12'
+          }`}
+          aria-hidden="true"
+        >
+          {orb.label ? (
+            <span className="text-[9px] font-bold tracking-[0.16em] text-white/70 uppercase">
+              {orb.label}
+            </span>
+          ) : null}
         </div>
+      ))}
 
-        <div className="order-3 min-w-0 overflow-hidden lg:order-2">
+      <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col items-center justify-center px-5 pt-28 pb-16 sm:px-8">
+        <div className="relative z-20 mx-auto mb-[-4.5rem] w-full max-w-[420px] sm:mb-[-5.5rem] lg:max-w-[460px]">
           <HeroLaptop />
-          <p className="mt-5 text-center text-[12px] font-medium tracking-[0.12em] text-white/45 uppercase">
-            A real may-i session — <code className="text-acid">/etc</code> denied, then a write that
-            waits for you.
-          </p>
         </div>
 
-        <div className="order-2 min-w-0 lg:order-3 lg:col-span-2">
+        <h1 className="font-display relative z-10 max-w-5xl text-center text-[40px] leading-[0.88] font-extrabold tracking-[-0.045em] text-white uppercase sm:text-[64px] lg:text-[92px]">
+          Ask before
+          <br />
+          it acts —
+          <br />
+          every tool call
+          <br />
+          hits a policy
+        </h1>
+
+        <p className="relative z-10 mx-auto mt-7 max-w-xl text-center text-[16px] leading-relaxed text-white/70 sm:text-[18px]">
+          may-i sits between an AI agent and its tools. Every action is checked against a YAML
+          policy — allowed, blocked, or paused for your approval.
+        </p>
+
+        <div className="relative z-10 mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          {CHIPS.map((chip) => (
+            <span
+              key={chip.label}
+              className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.16em] text-white/45 uppercase"
+            >
+              <chip.icon size={12} className="text-acid" />
+              {chip.label}
+            </span>
+          ))}
+        </div>
+
+        <div className="relative z-10 mt-8 w-full max-w-2xl">
           <CopyCommand id="install" />
-          <p className="mt-3 text-center text-[12px] text-white/40 lg:text-left">
-            Or <span className="text-white/70">npm install -g mayi-mcp</span> then{' '}
-            <span className="text-white/70">mayi -- …</span>
+          <p className="mt-3 text-center text-[12px] text-white/35">
+            Or <span className="text-white/60">npm install -g mayi-mcp</span> then{' '}
+            <span className="text-white/60">mayi -- …</span>
           </p>
         </div>
       </div>

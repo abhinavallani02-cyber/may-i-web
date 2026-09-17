@@ -23,10 +23,6 @@ const FAQS = [
     a: 'They can bypass may-i. That’s a known limit — may-i only sees traffic that goes through it.',
   },
   {
-    q: 'Can I use it in production?',
-    a: 'It’s early. Use it on your own work first, read the code, and decide for yourself.',
-  },
-  {
     q: 'Is it really free?',
     a: 'Yes, MIT. You’re being asked to put this between an agent and your credentials — that only makes sense if you can read every line.',
   },
@@ -36,17 +32,14 @@ export function FaqSection() {
   const [open, setOpen] = useState(0)
 
   return (
-    <section id="faq" className="bg-fog px-5 py-24 text-ink sm:px-8 md:py-32 lg:px-12">
+    <section id="faq" className="bg-fog px-5 py-20 text-ink sm:px-8 lg:px-16">
       <Reveal>
-        <p className="text-center text-[12px] font-bold tracking-[0.22em] text-black/40 uppercase">
-          FAQ
-        </p>
-        <h2 className="font-display mx-auto mt-4 max-w-3xl text-center text-5xl leading-[0.88] font-extrabold tracking-[-0.045em] uppercase sm:text-6xl lg:text-[72px]">
+        <h2 className="font-display text-center text-[36px] leading-[0.92] font-extrabold tracking-[-0.04em] uppercase sm:text-5xl">
           Questions
         </h2>
       </Reveal>
 
-      <div className="mx-auto mt-12 max-w-3xl divide-y divide-black/10 border-y border-black/10">
+      <div className="mx-auto mt-12 max-w-3xl">
         {FAQS.map((item, i) => {
           const isOpen = open === i
           return (
@@ -54,20 +47,18 @@ export function FaqSection() {
               <button
                 type="button"
                 onClick={() => setOpen(isOpen ? -1 : i)}
-                className="flex w-full items-start justify-between gap-6 py-6 text-left"
+                className="flex w-full items-start justify-between gap-6 border-t border-black/10 py-5 text-left last:border-b"
                 aria-expanded={isOpen}
               >
                 <span>
                   <span className="block text-[16px] font-semibold tracking-tight">{item.q}</span>
                   <span
-                    className={`mt-2 block text-[15px] leading-relaxed text-black/55 ${
-                      isOpen ? '' : 'hidden'
-                    }`}
+                    className={`mt-2 block text-[15px] leading-relaxed text-black/55 ${isOpen ? '' : 'hidden'}`}
                   >
                     {item.a}
                   </span>
                 </span>
-                <span aria-hidden="true" className="mt-1 font-display text-xl text-black/35">
+                <span aria-hidden="true" className="text-xl text-black/30">
                   {isOpen ? '–' : '+'}
                 </span>
               </button>
