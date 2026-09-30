@@ -304,6 +304,8 @@ section{position:relative}
 .qa-body>div{overflow:hidden}
 .qa-body p{margin:0;padding:14px 14px 16px;border-top:1px solid #26272f;color:#b9bbc8;font-size:14.5px;line-height:1.65}
 .qa-body p code{font-size:.88em;color:#e4e5ec;background:#20212a;border-radius:3px;padding:1px 5px}
+.qa-body a{color:#eceef3;transition:color .2s}
+.qa-body a:hover{color:var(--blue)}
 
 /* final cta */
 .final{position:relative;overflow:hidden;isolation:isolate}
@@ -911,6 +913,10 @@ section{position:relative}
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">Does it see every tool my agent uses?<svg aria-hidden="true"><use href="#chev"/></svg></button>
         <div class="qa-body"><div><p>No. may-i only sees calls that go through MCP. Agents with native file tools, such as Claude Code, can read and write files without touching MCP at all. Coverage is strongest on MCP-only tools like databases, APIs, and integrations.</p></div></div>
+      </div>
+      <div class="qa-item">
+        <button class="qa-btn" aria-expanded="false">Does approval work in every MCP client?<svg aria-hidden="true"><use href="#chev"/></svg></button>
+        <div class="qa-body"><div><p>Approval via MCP's native elicitation/create is implemented and verified working in Cursor. Claude Code's VS Code extension declares elicitation support but auto-declines without rendering UI (<a href="https://github.com/anthropics/claude-code/issues/79174" target="_blank" rel="noopener">issue #79174</a>); may-i detects this and falls back to a terminal prompt.</p></div></div>
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">Do policy edits apply right away?<svg aria-hidden="true"><use href="#chev"/></svg></button>
