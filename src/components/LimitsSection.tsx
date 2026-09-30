@@ -1,8 +1,11 @@
+import type { ReactNode } from 'react'
 import { GITHUB_URL } from '../lib/site'
 import { Reveal } from './Reveal'
 import { Pill } from './Pill'
 
-const LIMITS = [
+const ELICITATION_ISSUE_URL = 'https://github.com/anthropics/claude-code/issues/79174'
+
+const LIMITS: { title: string; body: ReactNode }[] = [
   {
     title: 'Native tool bypass',
     body: 'Built-in file tools (for example Claude Code’s) can go around may-i.',
@@ -21,7 +24,22 @@ const LIMITS = [
   },
   {
     title: 'VS Code elicitation',
-    body: 'Claude Code’s VS Code extension auto-declines MCP elicitation (upstream #79174).',
+    body: (
+      <>
+        Approval via MCP's native elicitation/create is implemented and verified working in Cursor.
+        Claude Code's VS Code extension declares elicitation support but auto-declines without
+        rendering UI (
+        <a
+          href={ELICITATION_ISSUE_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="text-white/70 underline decoration-white/20 underline-offset-4 hover:text-acid"
+        >
+          issue #79174
+        </a>
+        ); may-i detects this and falls back to a terminal prompt.
+      </>
+    ),
   },
 ]
 
