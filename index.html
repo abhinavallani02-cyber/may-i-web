@@ -795,7 +795,7 @@ section{position:relative}
     <div class="cards2">
       <article class="card reveal">
         <h3 class="card-h">Policy as code</h3>
-        <p class="card-d">One YAML file, checked top to bottom, and the first rule that matches decides. Tool-name globs and argument path prefixes are the whole language.</p>
+        <p class="card-d">One YAML file, checked top to bottom, and the first rule that matches decides. A tool-name glob is checked first, then optional <code>path_prefix</code> and <code>sql.single</code>.</p>
         <div class="card-v">
           <div class="yaml" id="yaml" aria-label="Example policy.yaml">
             <div class="yl"><b>1</b><span class="k">rules</span><span class="p">:</span></div>
@@ -904,11 +904,11 @@ section{position:relative}
     <div class="qa reveal" style="--d:.1s">
       <div class="qa-item open">
         <button class="qa-btn" aria-expanded="true">What is may-i?<svg aria-hidden="true"><use href="#chev"/></svg></button>
-        <div class="qa-body"><div><p>An open-source permission layer for AI agents. It runs as an MCP stdio proxy between your agent and an MCP server, checks every tool call against a YAML policy, and returns allow, deny, or ask. It's about 300 lines of Node.js with no framework, and its only dependency is <code>yaml</code>. It's on npm as <code>mayi-mcp</code> under the MIT license.</p></div></div>
+        <div class="qa-body"><div><p>An open-source permission layer for AI agents. It runs as an MCP proxy between your agent and an MCP server, checks every tool call against a YAML policy, and returns allow, deny, or ask. On the default stdio path it loads only Node built-ins and one package, <code>yaml</code>, and its own code is about 1,700 lines across two files, with no framework. The MCP SDK is imported only when you point may-i at a remote server with <code>--upstream-url</code>. npm still installs the SDK and <code>zod</code> either way, so they're on disk but never loaded on stdio. It's on npm as <code>mayi-mcp</code> under the MIT license.</p></div></div>
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">How are rules matched?<svg aria-hidden="true"><use href="#chev"/></svg></button>
-        <div class="qa-body"><div><p>In order, top to bottom, and the first match wins. A rule matches on the tool name (with <code>*</code> globs) and, optionally, a <code>path_prefix</code> on the call's path arguments. Glob matching isn't parsing, though. A rule meant to allow only <code>SELECT</code> queries can be slipped past with compound SQL. Structural argument parsing is on the roadmap.</p></div></div>
+        <div class="qa-body"><div><p>In order, top to bottom, and the first match wins. The tool-name glob is checked first, with <code>*</code> as a wildcard. Then, optionally, <code>path_prefix</code> compares whole path segments after collapsing <code>..</code>, <code>.</code>, and duplicate slashes, and it follows symlinks. <code>sql.single: select</code> matches exactly one statement. Quotes, <code>--</code> and <code>/* */</code> comments, and Postgres dollar quotes are understood, so <code>SELECT 1; DROP TABLE users</code> doesn't match. Compound or unparseable input never matches an allow rule; it falls to a later deny or ask, or to the default ask. It checks only the statement's leading verb, so <code>SELECT … INTO</code>, <code>COPY</code>, or a SELECT calling a function that writes can still match a select rule.</p></div></div>
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">Does it see every tool my agent uses?<svg aria-hidden="true"><use href="#chev"/></svg></button>
@@ -916,7 +916,7 @@ section{position:relative}
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">Does approval work in every MCP client?<svg aria-hidden="true"><use href="#chev"/></svg></button>
-        <div class="qa-body"><div><p>Approval via MCP's native elicitation/create is implemented and verified working in Cursor. Claude Code's VS Code extension declares elicitation support but auto-declines without rendering UI (<a href="https://github.com/anthropics/claude-code/issues/79174" target="_blank" rel="noopener">issue #79174</a>); may-i detects this and falls back to a terminal prompt.</p></div></div>
+        <div class="qa-body"><div><p>Approval via MCP's native elicitation/create is implemented and verified working in Cursor. Claude Code's VS Code extension declares elicitation support but auto-declines without rendering UI (<a href="https://github.com/anthropics/claude-code/issues/98256" target="_blank" rel="noopener">issue #98256</a>); may-i detects this and falls back to a terminal prompt.</p></div></div>
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">Do policy edits apply right away?<svg aria-hidden="true"><use href="#chev"/></svg></button>
@@ -924,7 +924,7 @@ section{position:relative}
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">Which transports are supported?<svg aria-hidden="true"><use href="#chev"/></svg></button>
-        <div class="qa-body"><div><p>stdio only for now, with no SSE or HTTP yet. may-i spawns the real server itself and speaks the same stdio protocol to your client. SSE and HTTP transports are on the roadmap.</p></div></div>
+        <div class="qa-body"><div><p>stdio is the default and unchanged: may-i spawns the real server itself. <code>--upstream-url &lt;url&gt;</code> fronts a remote MCP server over streamable HTTP (default), or SSE with <code>--transport sse</code>. The client still talks stdio to may-i either way. A static bearer token is supported via <code>--bearer-env &lt;NAME&gt;</code> and is never logged. OAuth is out of scope.</p></div></div>
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">Does any data leave my machine?<svg aria-hidden="true"><use href="#chev"/></svg></button>
@@ -932,7 +932,7 @@ section{position:relative}
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">What's on the roadmap?<svg aria-hidden="true"><use href="#chev"/></svg></button>
-        <div class="qa-body"><div><p>Session-scoped grants, richer context in approval prompts, structural argument parsing, SSE and HTTP transports, and curated rule packs.</p></div></div>
+        <div class="qa-body"><div><p>Session-scoped grants (<code>--grant-ttl</code>), structural argument matching, rule packs (<code>--rules filesystem|git|github|postgres</code>), and HTTP/SSE upstream have shipped. Richer context in approval prompts is what's next.</p></div></div>
       </div>
     </div>
   </div>
