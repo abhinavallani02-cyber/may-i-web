@@ -6,7 +6,7 @@
 <title>may-i — a permission layer for AI agents</title>
 <meta
   name="description"
-  content="may-i sits between an AI agent and its tools, checking every action against a policy file before it happens. Allow, deny, or ask. Open source, local-only, MIT."
+  content="may-i sits between an AI agent and its tools, checking every action against a policy file before it happens. Allow, deny, or ask. Open source, local by default, MIT."
 />
 <meta name="theme-color" content="#000000" />
 <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -14,14 +14,14 @@
 <meta property="og:title" content="may-i — a permission layer for AI agents" />
 <meta
   property="og:description"
-  content="may-i sits between an AI agent and its tools, checking every action against a policy file before it happens. Allow, deny, or ask. Open source, local-only, MIT."
+  content="may-i sits between an AI agent and its tools, checking every action against a policy file before it happens. Allow, deny, or ask. Open source, local by default, MIT."
 />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="may-i — a permission layer for AI agents" />
 <meta
   name="twitter:description"
-  content="may-i sits between an AI agent and its tools, checking every action against a policy file before it happens. Allow, deny, or ask. Open source, local-only, MIT."
+  content="may-i sits between an AI agent and its tools, checking every action against a policy file before it happens. Allow, deny, or ask. Open source, local by default, MIT."
 />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -710,8 +710,8 @@ section{position:relative}
       <div class="glow-2">
         <div class="trust-card">
           <div class="tile">
-            <h3>Local-only</h3>
-            <p>Nothing leaves the machine. No telemetry, no account, no cloud.</p>
+            <h3>Local by default</h3>
+            <p>On the default stdio path, nothing leaves the machine. No telemetry, no account, and no network or model in the decision path. With <code>--upstream-url</code>, forwarded tool calls go to the remote server you named, and nothing else leaves the machine.</p>
             <div class="illus" aria-hidden="true">
               <svg viewBox="0 0 360 220">
                 <rect x="14" y="30" width="226" height="160" rx="6" fill="#0f111a" stroke="#3a4280" stroke-dasharray="5 6"/>
@@ -928,7 +928,7 @@ section{position:relative}
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">Does any data leave my machine?<svg aria-hidden="true"><use href="#chev"/></svg></button>
-        <div class="qa-body"><div><p>No. There's no telemetry and no model in the decision path. Payloads are inspected in memory and aren't written to disk by default. The audit log records only the decision unless you opt in with <code>--audit-include-args</code>.</p></div></div>
+        <div class="qa-body"><div><p>On the default stdio path, no. There's no telemetry, and no network or model in the decision path. With <code>--upstream-url</code>, forwarded tool calls go to the remote server you named, and nothing else leaves the machine. Payloads are inspected in memory and aren't written to disk by default. The audit log records only the decision unless you opt in with <code>--audit-include-args</code>.</p></div></div>
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">What's on the roadmap?<svg aria-hidden="true"><use href="#chev"/></svg></button>
