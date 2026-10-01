@@ -904,7 +904,7 @@ section{position:relative}
     <div class="qa reveal" style="--d:.1s">
       <div class="qa-item open">
         <button class="qa-btn" aria-expanded="true">What is may-i?<svg aria-hidden="true"><use href="#chev"/></svg></button>
-        <div class="qa-body"><div><p>An open-source permission layer for AI agents. It runs as an MCP proxy between your agent and an MCP server, checks every tool call against a YAML policy, and returns allow, deny, or ask. On the default stdio path it loads only Node built-ins and one package, <code>yaml</code>, and its own code is about 1,700 lines across two files, with no framework. The MCP SDK is imported only when you point may-i at a remote server with <code>--upstream-url</code>. npm still installs the SDK and <code>zod</code> either way, so they're on disk but never loaded on stdio. It's on npm as <code>mayi-mcp</code> under the MIT license.</p></div></div>
+        <div class="qa-body"><div><p>An open-source permission layer for AI agents. It runs as an MCP proxy between your agent and an MCP server, checks every tool call against a YAML policy, and returns allow, deny, or ask. On the default stdio path it loads only Node built-ins and one package, <code>yaml</code>, and its own code is about 1,700 lines across two files, with no framework. The MCP SDK is imported only when you point may-i at a remote server with <code>--upstream-url</code>. npm doesn't install it unless you add it yourself with <code>npm install @modelcontextprotocol/sdk</code>, so a stdio-only install is just may-i and <code>yaml</code>. It's on npm as <code>mayi-mcp</code> under the MIT license.</p></div></div>
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">How are rules matched?<svg aria-hidden="true"><use href="#chev"/></svg></button>
@@ -924,7 +924,7 @@ section{position:relative}
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">Which transports are supported?<svg aria-hidden="true"><use href="#chev"/></svg></button>
-        <div class="qa-body"><div><p>stdio is the default and unchanged: may-i spawns the real server itself. <code>--upstream-url &lt;url&gt;</code> fronts a remote MCP server over streamable HTTP (default), or SSE with <code>--transport sse</code>. The client still talks stdio to may-i either way. A static bearer token is supported via <code>--bearer-env &lt;NAME&gt;</code> and is never logged. OAuth is out of scope.</p></div></div>
+        <div class="qa-body"><div><p>stdio is the default and unchanged: may-i spawns the real server itself. <code>--upstream-url &lt;url&gt;</code> fronts a remote MCP server over streamable HTTP (default), or SSE with <code>--transport sse</code>. It needs the MCP SDK, which isn't installed by default: <code>npm install @modelcontextprotocol/sdk</code>. The client still talks stdio to may-i either way. A static bearer token is supported via <code>--bearer-env &lt;NAME&gt;</code> and is never logged. OAuth is out of scope.</p></div></div>
       </div>
       <div class="qa-item">
         <button class="qa-btn" aria-expanded="false">Does any data leave my machine?<svg aria-hidden="true"><use href="#chev"/></svg></button>
