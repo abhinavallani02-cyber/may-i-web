@@ -328,6 +328,25 @@ section{position:relative}
 .install small{color:#9da1b8;font-size:13px}
 .install small code{color:#d9dbe6}
 
+/* quickstart, folded into the install block */
+.qs{width:min(820px,100%);text-align:left;background:#101118;border:1px solid #2a2c3c;border-radius:8px;padding:18px 18px 16px;box-shadow:0 24px 70px -28px rgba(0,0,0,.85)}
+.qs h3{margin:0;font-size:18px;font-weight:500;letter-spacing:-.01em}
+.qs-lead{margin:8px 0 14px;color:#b4b7c6;font-size:14px;line-height:1.6}
+.qs-tabs{display:flex;gap:22px;border-bottom:1px solid #2a2b35}
+.qs-tab{position:relative;padding:8px 0 10px;font-size:15px;font-weight:500;color:#a8abb9;border-radius:0}
+.qs-tab:hover{color:#fff}
+.qs-tab[aria-selected="true"]{color:#fff}
+.qs-tab[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#fff;border-radius:1px}
+.qs-panel{padding-top:12px}
+.qs-note{margin:10px 0 0;color:#9da1b8;font-size:13px;line-height:1.55}
+.qs-lead code,.qs-note code{font-size:.88em;background:#20212a;border:1px solid #2b2c36;border-radius:4px;padding:1px 5px;color:#e4e5ec}
+.qs-note a{color:#eceef3;transition:color .2s}
+.qs-note a:hover{color:var(--blue)}
+.qs .code{margin-top:0}
+.qs .code pre{white-space:pre-wrap;overflow-wrap:break-word;word-break:normal}
+.qs .code-h{text-transform:none;letter-spacing:0;font-family:var(--mono);font-size:12px;color:var(--muted-2)}
+.qs .code-h .copy{font-family:var(--font);text-transform:none;letter-spacing:0;flex:none}
+
 /* footer */
 .footer{background:#18181b;border-top:1px solid #222228}
 .foot-top{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:70px;max-width:none;padding:6px 24px}
@@ -413,6 +432,10 @@ section{position:relative}
   .qa-btn{font-size:17px}
   .final-panel{padding:90px 20px 160px}
   .cmd{font-size:14px;padding-left:16px}
+  .qs{padding:14px 12px 12px}
+  .qs h3{font-size:17px}
+  .qs-lead{font-size:13.5px}
+  .qs-tabs{gap:16px}
   .foot-top{flex-direction:column;align-items:flex-start;padding:20px 24px}
   .foot-links{flex-wrap:wrap;gap:16px}
   .switchboard{display:none}
@@ -945,7 +968,29 @@ section{position:relative}
     <h2 id="final-h" class="reveal">Give your agents permission,<br>not the keyring.</h2>
     <div class="install reveal" style="--d:.12s">
       <div class="cmd"><span class="dollar">$</span><code id="cmd">npx mayi-mcp</code><button class="copy" id="copy" type="button" aria-label="Copy install command"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg><span>Copy</span></button></div>
-      <small>Add <code>-- &lt;your server command&gt;</code> and point your MCP client at it.</small>
+      <div class="qs" id="quickstart">
+        <h3 id="qs-h">Quickstart</h3>
+        <p class="qs-lead">Both configs front <code>@modelcontextprotocol/server-filesystem</code> with the filesystem pack: reads and listing are allowed; writes, edits, moves and creates under <code>/etc</code> or <code>/prod</code> are denied; every other write, edit, move or create asks. Other packs are <code>--rules git|github|postgres</code>, and <code>--policy policy.yaml</code> adds your own rules after the pack.</p>
+        <div class="qs-tabs" role="tablist" aria-label="MCP client">
+          <button class="qs-tab" id="qs-tab-cursor" type="button" role="tab" aria-controls="qs-panel-cursor" aria-selected="true">Cursor</button>
+          <button class="qs-tab" id="qs-tab-claude" type="button" role="tab" aria-controls="qs-panel-claude" aria-selected="false" tabindex="-1">Claude Code</button>
+        </div>
+        <div class="qs-panel" id="qs-panel-cursor" role="tabpanel" aria-labelledby="qs-tab-cursor">
+          <div class="code">
+            <div class="code-h"><span>~/.cursor/mcp.json</span><button class="copy" type="button" data-copy-for="qs-cursor-src" aria-label="Copy Cursor config"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg><span>Copy</span></button></div>
+            <pre><code id="qs-cursor-src">{"mcpServers": {"may-i": {"command": "npx", "args": ["-y", "mayi-mcp", "--rules", "filesystem", "--audit", "/absolute/path/to/audit.jsonl", "--", "npx", "-y", "@modelcontextprotocol/server-filesystem", "/absolute/path/to/project"]}}}</code></pre>
+          </div>
+          <p class="qs-note">Approval prompts appear in Cursor's own UI (MCP elicitation); this was verified in Cursor. Paths should be absolute.</p>
+        </div>
+        <div class="qs-panel" id="qs-panel-claude" role="tabpanel" aria-labelledby="qs-tab-claude" hidden>
+          <div class="code">
+            <div class="code-h"><span>claude mcp add -s project</span><button class="copy" type="button" data-copy-for="qs-claude-src" aria-label="Copy Claude Code command"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg><span>Copy</span></button></div>
+            <pre><code id="qs-claude-src">claude mcp add -s project may-i -- npx -y mayi-mcp --rules filesystem --audit /absolute/path/to/audit.jsonl -- npx -y @modelcontextprotocol/server-filesystem /absolute/path/to/project</code></pre>
+          </div>
+          <p class="qs-note">Writes a project <code>.mcp.json</code>. The nested <code>--</code> passes through intact. Project-scoped servers need a one-time approval the next time you run <code>claude</code>.</p>
+          <p class="qs-note">Claude Code does not show may-i's approval prompt in its UI (its VS Code extension auto-declines elicitation, <a href="https://github.com/anthropics/claude-code/issues/98256" target="_blank" rel="noopener">issue #98256</a>), so an <code>ask</code> falls back to a terminal prompt, and resolves to deny when there's no terminal.</p>
+        </div>
+      </div>
       <a class="pill pill-blue pill-lg" href="https://github.com/abhinavallani02-cyber/may-i" target="_blank" rel="noopener"><svg width="18" height="18" aria-hidden="true"><use href="#gh"/></svg>View on GitHub</a>
     </div>
   </div>
