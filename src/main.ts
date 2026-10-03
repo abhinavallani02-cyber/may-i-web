@@ -61,21 +61,49 @@
     });
   });
 
-  /* copy install command */
-  var copyBtn = $('#copy');
-  copyBtn.addEventListener('click', function(){
-    var text = $('#cmd').textContent;
-    function done(){
-      copyBtn.classList.add('done'); $('span', copyBtn).textContent = 'Copied';
-      setTimeout(function(){ copyBtn.classList.remove('done'); $('span', copyBtn).textContent = 'Copy'; }, 1800);
-    }
-    function fallback(){
-      var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
-      ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); } catch {}
-      document.body.removeChild(ta); done();
-    }
-    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+  /* copy buttons copy the text that is shown */
+  function bindCopy(btn, getText){
+    btn.addEventListener('click', function(){
+      var text = getText();
+      function done(){
+        btn.classList.add('done'); $('span', btn).textContent = 'Copied';
+        setTimeout(function(){ btn.classList.remove('done'); $('span', btn).textContent = 'Copy'; }, 1800);
+      }
+      function fallback(){
+        var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch {}
+        document.body.removeChild(ta); done();
+      }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+    });
+  }
+  bindCopy($('#copy'), function(){ return $('#cmd').textContent; });
+  $$('.qs .copy').forEach(function(btn){
+    bindCopy(btn, function(){ return document.getElementById(btn.getAttribute('data-copy-for')).textContent; });
+  });
+
+  /* quickstart client tabs */
+  var qsTabs = $$('.qs-tab');
+  function selectQs(tab, focus){
+    qsTabs.forEach(function(t){
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (focus) tab.focus();
+  }
+  qsTabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ selectQs(t, false); });
+    t.addEventListener('keydown', function(e){
+      var next = null;
+      if (e.key === 'ArrowRight') next = qsTabs[(i + 1) % qsTabs.length];
+      else if (e.key === 'ArrowLeft') next = qsTabs[(i - 1 + qsTabs.length) % qsTabs.length];
+      else if (e.key === 'Home') next = qsTabs[0];
+      else if (e.key === 'End') next = qsTabs[qsTabs.length - 1];
+      if (next){ e.preventDefault(); selectQs(next, true); }
+    });
   });
 
   /* policy engine mirroring the example policy (first match wins) */
